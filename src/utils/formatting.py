@@ -1,6 +1,96 @@
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Union
 from datetime import datetime
 import pytz
+import re
+from persiantools.jdatetime import JalaliDateTime
+
+def format_size(size_bytes: Union[int, float]) -> str:
+    """Format bytes size to human readable format"""
+    for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+        if size_bytes < 1024.0:
+            return f"{size_bytes:.2f} {unit}"
+        size_bytes /= 1024.0
+    return f"{size_bytes:.2f} PB"
+
+def format_date(timestamp: float) -> str:
+    """Format timestamp to human readable date"""
+    if not timestamp:
+        return "نامشخص"
+    
+    try:
+        dt = datetime.fromtimestamp(timestamp)
+        jdt = JalaliDateTime.to_jalali(dt)
+        return jdt.strftime("%Y/%m/%d")
+    except Exception:
+        return "نامشخص"
+
+def escape_markdown(text: str) -> str:
+    """Escape special characters for Markdown V2 formatting"""
+    if not text:
+        return ""
+    
+    # First escape backslashes
+    text = text.replace('\\', '\\\\')
+    
+    # Characters that need to be escaped in MarkdownV2
+    special_chars = [
+        '_', '*', '[', ']', '(', ')', '~', '`', '>', '#', 
+        '+', '-', '=', '|', '{', '}', '.', '!', '$', '&'
+    ]
+    
+    # Escape special characters
+    for char in special_chars:
+        text = text.replace(char, f'\\{char}')
+    
+    return text
+
+def format_code(text: str) -> str:
+    """Format text as inline code with proper escaping"""
+    escaped_text = text.replace('`', '\\`')
+    return f'`{escaped_text}`'
+
+def format_bold(text: str) -> str:
+    """Format text as bold with proper escaping"""
+    escaped_text = text.replace('*', '\\*')
+    return f'*{escaped_text}*'
+
+def validate_email(email: str) -> bool:
+    """Validate email format"""
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return bool(re.match(pattern, email))
+
+def format_duration(seconds: int) -> str:
+    """Format seconds to human readable duration"""
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+    
+    parts = []
+    if days > 0:
+        parts.append(f"{days}d")
+    if hours > 0:
+        parts.append(f"{hours}h")
+    if minutes > 0:
+        parts.append(f"{minutes}m")
+    if seconds > 0 or not parts:
+        parts.append(f"{seconds}s")
+    
+    return " ".join(parts)
+
+def format_traffic(bytes_used: int, bytes_total: int) -> str:
+    """Format traffic usage with percentage"""
+    used = format_size(bytes_used)
+    total = format_size(bytes_total)
+    percentage = (bytes_used / bytes_total * 100) if bytes_total > 0 else 0
+    return f"{used}/{total} ({percentage:.1f}%)"
+
+def format_status(status: bool) -> str:
+    """Format boolean status to emoji"""
+    return "🟢" if status else "🔴"
+
+def format_number(num: Union[int, float]) -> str:
+    """Format number with thousand separators"""
+    return f"{num:,}"
 
 def format_traffic(bytes_value: int) -> str:
     """Format traffic value in human readable format."""
