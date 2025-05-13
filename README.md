@@ -1,59 +1,119 @@
 # X-UI Telegram Bot
 
-A Telegram bot for monitoring X-UI VPN service usage and statistics.
+ربات تلگرام برای مدیریت و نظارت بر پنل X-UI
 
-## Features
+## 🚀 امکانات
 
-- Monitor VPN service status
-- Track upload and download usage
-- Check remaining days of service
-- View total data allocation
-- User information logging
+### 👥 مدیریت کاربران
+- افزودن کاربر جدید
+- بروزرسانی کاربران موجود
+- ریست ترافیک کاربران
+- مشاهده IP های متصل شده
+- نمایش کاربران آنلاین
 
-## Project Structure
+### 📊 گزارش‌گیری
+- نمایش آمار مصرف
+- وضعیت اتصال
+- تاریخ انقضا
+- حجم باقیمانده
+- گزارش کاربران آنلاین
 
+### 🛡️ پشتیبان‌گیری
+- تهیه نسخه پشتیبان از تنظیمات
+- ذخیره اطلاعات کاربران
+
+## ⚙️ نصب و راه‌اندازی
+
+### پیش‌نیازها
+- Python 3.7+
+- pip (Python Package Manager)
+- دسترسی به پنل X-UI
+- توکن ربات تلگرام
+
+### نصب
+1. کلون کردن مخزن:
+```bash
+git clone https://github.com/yourusername/xui-bot.git
+cd xui-bot
 ```
-.
-├── README.md
-├── requirements.txt
-├── config.py           # Configuration settings
-├── main.py            # Main application entry point
-├── xui_client.py      # X-UI API client
-├── bot_handlers.py    # Telegram bot handlers
-└── utils.py           # Utility functions
-```
 
-## Setup
-
-1. Install dependencies:
+2. نصب وابستگی‌ها:
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Configure the bot:
-- Update `config.py` with your X-UI server details and Telegram bot token
+3. تنظیم پیکربندی:
+- ویرایش فایل `src/config/config.py`:
+  ```python
+  X_UI_CONFIG = {
+      "URL": "http://your-panel-url:port",
+      "USERNAME": "your-username",
+      "PASSWORD": "your-password",
+      "DEFAULT_INBOUND_ID": 1
+  }
 
-3. Run the bot:
+  TELEGRAM_CONFIG = {
+      "BOT_TOKEN": "your-bot-token",
+      "ADMIN_IDS": []  # آیدی عددی ادمین‌ها
+  }
+  ```
+
+4. اجرای ربات:
 ```bash
-python main.py
+python src/main.py
 ```
 
-## Usage
+## 📝 دستورات ربات
 
-1. Start the bot by sending `/start`
-2. Send your VLESS link to check service status
-3. The bot will respond with:
-   - Service status (active/inactive)
-   - Upload usage
-   - Download usage
-   - Total usage
-   - Data allocation
-   - Expiry date
-   - Last update time
+- `/start` - شروع کار با ربات
+- `/help` - نمایش راهنما
+- `/add [email] [GB] [days]` - افزودن کاربر جدید
+- `/update [email] [GB] [days]` - بروزرسانی کاربر
+- `/reset [email]` - ریست ترافیک
+- `/ips [email]` - نمایش IP های فعال
+- `/online` - نمایش کاربران آنلاین
+- `/backup` - تهیه نسخه پشتیبان
 
-## Requirements
+## 📁 ساختار پروژه
 
-- Python 3.7+
-- pyTelegramBotAPI
-- requests
-- pytz 
+```
+.
+├── src/
+│   ├── api/
+│   │   └── xui_client.py      # کلاینت API برای X-UI
+│   ├── config/
+│   │   └── config.py          # تنظیمات
+│   ├── handlers/
+│   │   └── bot_handlers.py    # هندلرهای ربات
+│   ├── models/
+│   │   └── client.py          # مدل‌های داده
+│   ├── utils/
+│   │   ├── formatting.py      # توابع فرمت‌دهی
+│   │   └── validators.py      # اعتبارسنجی
+│   └── main.py               # فایل اصلی
+├── requirements.txt          # وابستگی‌ها
+└── README.md                # مستندات
+```
+
+## 🔒 امنیت
+- از نگهداری اطلاعات حساس در کد خودداری کنید
+- دسترسی‌های را محدود کنید
+- از توکن ربات محافظت کنید
+- لاگ‌ها را منظم بررسی کنید
+
+## 🤝 مشارکت
+پیشنهادات و مشارکت‌های شما باعث بهبود پروژه می‌شود. لطفاً:
+1. Fork کنید
+2. Branch جدید بسازید
+3. تغییرات را Commit کنید
+4. Push کنید
+5. Pull Request بدهید
+
+## 📄 لایسنس
+این پروژه تحت لایسنس MIT منتشر شده است.
+
+## ⚠️ نکات مهم
+- قبل از استفاده، تنظیمات را با دقت انجام دهید
+- از صحت آدرس پنل X-UI اطمینان حاصل کنید
+- دسترسی‌های لازم را بررسی کنید
+- همیشه از داده‌های مهم پشتیبان بگیرید 

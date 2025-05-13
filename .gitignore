@@ -16,16 +16,19 @@ parts/
 sdist/
 var/
 wheels/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # Virtual Environment
 venv/
 env/
 ENV/
-.env/
+.env
 .venv/
+.env.*
 
 # IDE
 .idea/
@@ -33,29 +36,43 @@ ENV/
 *.swp
 *.swo
 .DS_Store
+*.sublime-project
+*.sublime-workspace
+.project
+.pydevproject
+.settings/
+*.code-workspace
 
 # Project specific
 userid/
-usersID.txt
+backups/
 *.log
-.env
+*.log.*
+logs/
+*.session
+*.session-journal
+config.ini
+*.db
+*.sqlite3
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST 
+# Temporary files
+*.bak
+*.tmp
+*.temp
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.pyre/
+.dmypy.json
+dmypy.json
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini 

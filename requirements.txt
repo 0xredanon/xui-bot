@@ -1,3 +1,22 @@
+# Telegram Bot API
 pyTelegramBotAPI==4.14.0
+
+# HTTP Requests
 requests==2.31.0
-pytz==2024.1 
+urllib3==2.1.0
+certifi==2024.2.2
+
+# Date and Time
+pytz==2024.1
+
+# Environment Variables
+python-dotenv==1.0.0
+
+# Utilities
+uuid==1.30
+typing-extensions==4.9.0
+
+# Development Tools
+black==24.1.1
+flake8==7.0.0
+mypy==1.8.0
