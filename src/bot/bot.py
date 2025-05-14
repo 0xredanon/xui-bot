@@ -10,7 +10,7 @@ from ..models.models import TelegramUser, UserActivity, ChatHistory, VPNClient
 from ..api.xui_client import XUIClient
 
 # Initialize bot with hardcoded token
-BOT_TOKEN = ""  # Replace with your Telegram bot token
+BOT_TOKEN = ""  # Replace with your Telegram bot token 
 bot = telebot.TeleBot(BOT_TOKEN)
 xui_client = XUIClient()
 
