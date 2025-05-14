@@ -123,6 +123,7 @@ proj.py
 *.log
 logs/
 log/
+/exports
 
 # Local development
 .DS_Store
