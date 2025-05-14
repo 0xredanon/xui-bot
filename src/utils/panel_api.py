@@ -227,4 +227,4 @@ class PanelAPI:
                 self.session.close()
             logger.info("Panel API session closed")
         except Exception as e:
-            logger.error(f"Error closing panel API session: {str(e)}") 
+            logger.error(f"Error closing panel API session: {str(e)}")  
