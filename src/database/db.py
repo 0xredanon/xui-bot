@@ -10,6 +10,7 @@ from contextlib import contextmanager
 
 from src.utils.logger import CustomLogger
 from src.utils.exceptions import *
+from proj import *
 
 # Initialize custom logger
 logger = CustomLogger("Database")
@@ -25,10 +26,10 @@ class Database:
     def __init__(self, db_name: str = "xui_bot"):
         try:
             self.db_config = {
-                'host': 'localhost',
-                'user': 'root',
-                'password': '',
-                'database': db_name
+                'host': host,
+                'user': user,
+                'password': password,
+                'database': database
             }
             
             # Create database if not exists

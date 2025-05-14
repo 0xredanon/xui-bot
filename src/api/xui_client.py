@@ -2,13 +2,13 @@ import os
 import requests
 from typing import Dict, Any, Optional, List
 from datetime import datetime, timedelta
-
+from proj import *
 class XUIClient:
     def __init__(self):
         # Hardcoded configuration
-        self.base_url = ""  # Replace with your X-UI panel URL
-        self.username = ""  # Replace with your X-UI username
-        self.password = ""  # Replace with your X-UI password
+        self.base_url = PANEL_URL  # Replace with your X-UI panel URL
+        self.username = PANEL_USERNAME  # Replace with your X-UI username
+        self.password = PANEL_PASSWORD  # Replace with your X-UI password
         self.session = requests.Session()
         self._login()
 

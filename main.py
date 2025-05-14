@@ -22,18 +22,19 @@ from src.utils.formatting import escape_markdown
 from src.utils.panel_api import PanelAPI
 from src.utils.logger import CustomLogger
 from src.utils.exceptions import *
+from proj import *
 
 # Enable middleware
 apihelper.ENABLE_MIDDLEWARE = True
 
 # Bot Configuration
-BOT_TOKEN = ""
-ADMIN_IDS = []
+BOT_TOKEN = BOT_TOKEN
+ADMIN_IDS = ADMIN_IDS
 
 # Panel Configuration
-PANEL_URL = ""
-PANEL_USERNAME = ""
-PANEL_PASSWORD = ""
+PANEL_URL = PANEL_URL
+PANEL_USERNAME = PANEL_USERNAME
+PANEL_PASSWORD = PANEL_PASSWORD
 
 # Rate Limiting Configuration
 RATE_LIMIT_MESSAGES = 30  # messages per window

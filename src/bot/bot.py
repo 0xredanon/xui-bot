@@ -8,9 +8,10 @@ from typing import Optional
 from ..models.base import SessionLocal
 from ..models.models import TelegramUser, UserActivity, ChatHistory, VPNClient
 from ..api.xui_client import XUIClient
+from proj import *
 
 # Initialize bot with hardcoded token
-BOT_TOKEN = ""  # Replace with your Telegram bot token
+BOT_TOKEN = BOT_TOKEN  # Replace with your Telegram bot token
 bot = telebot.TeleBot(BOT_TOKEN)
 xui_client = XUIClient()
 

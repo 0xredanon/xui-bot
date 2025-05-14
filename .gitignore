@@ -113,9 +113,11 @@ wheels/
 .installed.cfg
 *.egg
 
+
 # Environment variables
 .env.local
 .env.*.local
+proj.py
 
 # Logs
 *.log

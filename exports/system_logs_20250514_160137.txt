@@ -1,0 +1,2008 @@
+📋 گزارش لاگ‌های سیستم
+═══════════════════════════════
+
+⏰ زمان: 2025-05-14 16:01:37
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /logs
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 791,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/logs"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 16:01:34
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /help
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 789,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/help"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 16:01:32
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /start
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 787,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/start"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 16:01:22
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast",
+    "system"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:52:59
+📊 سطح: INFO
+📝 نوع: system_info_check
+📄 پیام: System information checked
+📎 جزئیات:
+{
+  "cpu_percent": 1.5,
+  "memory_percent": 83.1,
+  "disk_percent": 47.5
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:52:57
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /system
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 785,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/system"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:52:47
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast",
+    "system"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:51:49
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /system
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 782,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/system"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:51:47
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast",
+    "system"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:49:33
+📊 سطح: WARNING
+📝 نوع: unknown_command
+📄 پیام: Unknown command: /system
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:49:32
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /system
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 780,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/system"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:49:29
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /help
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 778,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/help"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:49:23
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /info
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 776,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/info"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:49:19
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:43:47
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /info
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 774,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/info"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:43:40
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /users
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 772,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/users"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:43:34
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /logs
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 770,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/logs"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:43:14
+📊 سطح: WARNING
+📝 نوع: unknown_command
+📄 پیام: Unknown command: /system
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:43:13
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /system
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 768,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/system"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:42:45
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /broadcast 👤
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 766,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/broadcast"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:42:37
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /broadcast
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 764,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/broadcast"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:42:17
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /backup
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 761,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/backup"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:42:15
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /help
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 759,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/help"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:42:07
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /info
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 757,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/info"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:42:03
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:40:33
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /info
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 755,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/info"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:40:21
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /start
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 753,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/start"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:40:13
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /info
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 751,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/info"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:39:58
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:37:31
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: vless://b5ef5984-554d-4349-a598-d4c831e4c62f@iran.olympusm.ir:350?type=tcp&path=%2F&host=speedtest.net&headerType=http&security=none#OlampVPN-m97
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 749,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": null
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:37:14
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:33:19
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: vless://b5ef5984-554d-4349-a598-d4c831e4c62f@iran.olympusm.ir:350?type=tcp&path=%2F&host=speedtest.net&headerType=http&security=none#OlampVPN-m97
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 747,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": null
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:33:17
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /usage
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 745,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/usage"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:33:08
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /logs
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 743,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/logs"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:32:59
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:31:19
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /logs
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 739,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/logs"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:31:11
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:30:17
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /logs
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 737,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/logs"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:30:06
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:26:15
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /logs
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 735,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/logs"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:26:11
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /users
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 733,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/users"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:26:01
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /info
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 731,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/info"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:25:57
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /help
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 729,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/help"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:25:55
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /start
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 727,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/start"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:25:44
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:22:57
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /logs
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 725,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/logs"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:22:51
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /users
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 723,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/users"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:22:47
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /info
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 722,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/info"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:22:40
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /info
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 721,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/info"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:22:29
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /help
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 719,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/help"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:22:26
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /start
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 717,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/start"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:22:13
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:15:15
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /users
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 715,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/users"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:13:49
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /broadcast 👤
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 713,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/broadcast"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:13:24
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /broadcast
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 711,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/broadcast"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:13:17
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /backup
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 708,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/backup"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:12:59
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /system
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 706,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/system"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:12:43
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /usage vless://b5ef5984-554d-4349-a598-d4c831e4c62f@iran.olympusm.ir:350?type=tcp&path=%2F&host=speedtest.net&headerType=http&security=none#OlampVPN-m97
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 704,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/usage"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:12:35
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /info
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 702,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/info"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:12:32
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /usage
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 700,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/usage"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:12:28
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /help
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 698,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/help"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:12:24
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /start
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 696,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/start"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:12:21
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast",
+    "system"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:11:38
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /start
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 627505337,
+    "username": "farzinc",
+    "first_name": "farzin",
+    "last_name": "",
+    "language_code": "fa"
+  },
+  "message_info": {
+    "message_id": 694,
+    "chat_id": 627505337,
+    "message_type": "text",
+    "command": "/start"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:11:29
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /backup
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 691,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/backup"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:11:26
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /help
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 689,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/help"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:11:21
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /start
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 687,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/start"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:11:10
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /start
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 683,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/start"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:11:10
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /info
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 5244907428,
+    "username": "",
+    "first_name": "Рахім",
+    "last_name": "",
+    "language_code": "fa"
+  },
+  "message_info": {
+    "message_id": 682,
+    "chat_id": 5244907428,
+    "message_type": "text",
+    "command": "/info"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:11:10
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /start
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 5244907428,
+    "username": "",
+    "first_name": "Рахім",
+    "last_name": "",
+    "language_code": "fa"
+  },
+  "message_info": {
+    "message_id": 681,
+    "chat_id": 5244907428,
+    "message_type": "text",
+    "command": "/start"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:11:02
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /start
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 5244907428,
+    "username": "",
+    "first_name": "Рахім",
+    "last_name": "",
+    "language_code": "fa"
+  },
+  "message_info": {
+    "message_id": 679,
+    "chat_id": 5244907428,
+    "message_type": "text",
+    "command": "/start"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:11:01
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast",
+    "system"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:10:03
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /usage vless://b5ef5984-554d-4349-a598-d4c831e4c62f@iran.olympusm.ir:350?type=tcp&path=%2F&host=speedtest.net&headerType=http&security=none#OlampVPN-m97
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 677,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/usage"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:09:58
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /usage
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 675,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/usage"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:09:51
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: vless://b5ef5984-554d-4349-a598-d4c831e4c62f@iran.olympusm.ir:350?type=tcp&path=%2F&host=speedtest.net&headerType=http&security=none#OlampVPN-m97
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 674,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": null
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:09:42
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: vless://b5ef5984-554d-4349-a598-d4c831e4c62f@iran.olympusm.ir:350?type=tcp&path=%2F&host=speedtest.net&headerType=http&security=none#OlampVPN-m97
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 673,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": null
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:09:30
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast",
+    "system"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:08:51
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /info
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 671,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/info"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:08:49
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast",
+    "system"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:07:16
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /info
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 669,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/info"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:07:14
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast",
+    "system"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:03:58
+📊 سطح: ERROR
+📝 نوع: handler_error_handle_info
+📄 پیام: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+📎 جزئیات:
+{
+  "traceback": "Traceback (most recent call last):\n  File \"/home/fsociety/Desktop/0xredanon/xui-bot/src/handlers/user_handlers.py\", line 463, in handle_info\n    if user.email:\n       ^^^^^^^^^^\nAttributeError: 'TelegramUser' object has no attribute 'email'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/home/fsociety/Desktop/0xredanon/xui-bot/src/handlers/user_handlers.py\", line 32, in wrapper\n    return func(self, message, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/fsociety/Desktop/0xredanon/xui-bot/src/handlers/user_handlers.py\", line 534, in handle_info\n    self.bot.reply_to(message, \"❌ خطا در دریافت اطلاعات.\")\n  File \"/usr/local/lib/python3.12/dist-packages/telebot/__init__.py\", line 5972, in reply_to\n    return self.send_message(message.chat.id, text, reply_parameters=reply_parameters, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/telebot/__init__.py\", line 1800, in send_message\n    apihelper.send_message(\n  File \"/usr/local/lib/python3.12/dist-packages/telebot/apihelper.py\", line 275, in send_message\n    return _make_request(token, method_url, params=payload, method='post')\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/telebot/apihelper.py\", line 168, in _make_request\n    json_result = _check_result(method_name, result)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/telebot/apihelper.py\", line 195, in _check_result\n    raise ApiTelegramException(method_name, result, result_json)\ntelebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\\'\n"
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:03:58
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /info
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 667,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/info"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:03:55
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /help
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 665,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/help"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:03:53
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /start
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 663,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/start"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 14:03:40
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast",
+    "system"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 13:52:58
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /help
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 661,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/help"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 13:52:53
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /expire
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 660,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/expire"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 13:52:33
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /usage vless://b5ef5984-554d-4349-a598-d4c831e4c62f@iran.olympusm.ir:350?type=tcp&path=%2F&host=speedtest.net&headerType=http&security=none#OlampVPN-m97
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 658,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/usage"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 13:52:27
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /usage
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 656,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/usage"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 13:52:25
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast",
+    "system"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 13:51:23
+📊 سطح: ERROR
+📝 نوع: handler_error_handle_usage
+📄 پیام: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\'
+📎 جزئیات:
+{
+  "traceback": "Traceback (most recent call last):\n  File \"/home/fsociety/Desktop/0xredanon/xui-bot/src/handlers/user_handlers.py\", line 27, in wrapper\n    return func(self, message, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/fsociety/Desktop/0xredanon/xui-bot/src/handlers/user_handlers.py\", line 222, in handle_usage\n    self.bot.reply_to(message, \"❌ لطفا لینک اشتراک خود را وارد کنید.\\nمثال: /usage vless://uuid@host:port?...\")\n  File \"/usr/local/lib/python3.12/dist-packages/telebot/__init__.py\", line 5972, in reply_to\n    return self.send_message(message.chat.id, text, reply_parameters=reply_parameters, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/telebot/__init__.py\", line 1800, in send_message\n    apihelper.send_message(\n  File \"/usr/local/lib/python3.12/dist-packages/telebot/apihelper.py\", line 275, in send_message\n    return _make_request(token, method_url, params=payload, method='post')\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/telebot/apihelper.py\", line 168, in _make_request\n    json_result = _check_result(method_name, result)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/telebot/apihelper.py\", line 195, in _check_result\n    raise ApiTelegramException(method_name, result, result_json)\ntelebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\\'\n"
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 13:51:22
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /usage
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 654,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/usage"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 13:51:16
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /help
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 652,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/help"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 13:51:14
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /start
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 650,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/start"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 13:51:04
+📊 سطح: INFO
+📝 نوع: admin_handlers_registered
+📄 پیام: Admin command handlers registered successfully
+📎 جزئیات:
+{
+  "handlers": [
+    "users",
+    "logs",
+    "backup",
+    "broadcast",
+    "system"
+  ]
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 13:44:55
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /info
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 648,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/info"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 13:44:46
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /status vless://b5ef5984-554d-4349-a598-d4c831e4c62f@iran.olympusm.ir:350?type=tcp&path=%2F&host=speedtest.net&headerType=http&security=none#OlampVPN-m97
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 646,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/status"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 13:44:34
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /status
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 644,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/status"
+  }
+}
+───────────────────────────────
+
+⏰ زمان: 2025-05-14 13:44:17
+📊 سطح: INFO
+📝 نوع: message_received
+📄 پیام: Message: /start
+📎 جزئیات:
+{
+  "user_info": {
+    "id": 1709403695,
+    "username": "Imahdi_ar",
+    "first_name": "𝙈𝙖𝙝𝙙𝙞",
+    "last_name": "𝘼𝙧𝙞𝙖",
+    "language_code": "en"
+  },
+  "message_info": {
+    "message_id": 642,
+    "chat_id": 1709403695,
+    "message_type": "text",
+    "command": "/start"
+  }
+}
+───────────────────────────────
+
