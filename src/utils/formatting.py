@@ -4,6 +4,11 @@ import pytz
 import re
 from persiantools.jdatetime import JalaliDateTime
 
+from .logger import CustomLogger
+
+# Initialize logger
+logger = CustomLogger("Formatting")
+
 def format_size(size_bytes: int) -> str:
     """Format bytes to human readable size with proper unit conversion"""
     try:
@@ -14,11 +19,12 @@ def format_size(size_bytes: int) -> str:
             return "0 B"
             
         # Define size units
-        units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
+        units = ['B', 'KB', 'MB', 'GB', 'TB']
         
         # Calculate the appropriate unit
         unit_index = 0
         size = float(size_bytes)
+        
         while size >= 1024 and unit_index < len(units) - 1:
             size /= 1024
             unit_index += 1

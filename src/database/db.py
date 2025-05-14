@@ -8,8 +8,8 @@ import time
 import traceback
 from contextlib import contextmanager
 
-from ..utils.logger import CustomLogger
-from ..utils.exceptions import *
+from src.utils.logger import CustomLogger
+from src.utils.exceptions import *
 
 # Initialize custom logger
 logger = CustomLogger("Database")

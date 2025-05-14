@@ -1,7 +1,20 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, BigInteger, String, DateTime, Boolean, ForeignKey, Text, JSON
+from sqlalchemy import Column, Integer, BigInteger, String, DateTime, Boolean, ForeignKey, Text, JSON, Enum
 from sqlalchemy.orm import relationship
 from .base import Base
+import enum
+
+class BackupStatus(enum.Enum):
+    PENDING = "pending"
+    COMPLETED = "completed"
+    FAILED = "failed"
+
+class SystemLogType(enum.Enum):
+    TRAFFIC_RESET = "traffic_reset"
+    VOLUME_CHANGE = "volume_change"
+    EXPIRY_CHANGE = "expiry_change"
+    BACKUP = "backup"
+    ERROR = "error"
 
 class TelegramUser(Base):
     __tablename__ = "telegram_users"
@@ -11,6 +24,7 @@ class TelegramUser(Base):
     username = Column(String(255), nullable=True)
     first_name = Column(String(255))
     last_name = Column(String(255), nullable=True)
+    email = Column(String(255), nullable=True)
     is_admin = Column(Boolean, default=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     last_activity = Column(DateTime, default=datetime.utcnow)
@@ -18,6 +32,7 @@ class TelegramUser(Base):
     # Relationships
     activities = relationship("UserActivity", back_populates="user")
     chats = relationship("ChatHistory", back_populates="user")
+    system_logs = relationship("SystemLog", back_populates="user")
 
 class VPNClient(Base):
     __tablename__ = "vpn_clients"
@@ -42,6 +57,7 @@ class VPNClient(Base):
     # Relationships
     ip_logs = relationship("ClientIPLog", back_populates="client")
     traffic_logs = relationship("TrafficLog", back_populates="client")
+    system_logs = relationship("SystemLog", back_populates="client")
 
 class UserActivity(Base):
     __tablename__ = "user_activities"
@@ -91,4 +107,33 @@ class TrafficLog(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     
     # Relationships
-    client = relationship("VPNClient", back_populates="traffic_logs") 
+    client = relationship("VPNClient", back_populates="traffic_logs")
+
+class SystemLog(Base):
+    __tablename__ = "system_logs"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    log_type = Column(Enum(SystemLogType))
+    user_id = Column(Integer, ForeignKey("telegram_users.id"))
+    client_id = Column(Integer, ForeignKey("vpn_clients.id"), nullable=True)
+    details = Column(JSON)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
+    # Relationships
+    user = relationship("TelegramUser", back_populates="system_logs")
+    client = relationship("VPNClient", back_populates="system_logs")
+
+class DatabaseBackup(Base):
+    __tablename__ = "database_backups"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    filename = Column(String(255))
+    status = Column(Enum(BackupStatus), default=BackupStatus.PENDING)
+    size_bytes = Column(BigInteger)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    completed_at = Column(DateTime, nullable=True)
+    error_message = Column(Text, nullable=True)
+    is_automatic = Column(Boolean, default=True)
+    created_by_id = Column(Integer, ForeignKey("telegram_users.id"), nullable=True)
+    backup_data = Column(JSON, nullable=True)  # For small backups stored directly in DB
+    file_path = Column(String(512), nullable=True)  # For backups stored as files 

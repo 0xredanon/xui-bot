@@ -10,8 +10,9 @@ import traceback
 from telebot import apihelper
 from datetime import datetime
 
-# Add src to Python path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+# Add src directory to Python path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, current_dir)
 
 from src.database.db import Database
 from src.handlers.admin_handlers import AdminHandler
@@ -362,9 +363,7 @@ class XUIBot:
             commands = [
                 BotCommand("start", "شروع کار با ربات"),
                 BotCommand("help", "راهنمای دستورات"),
-                BotCommand("status", "وضعیت سرور"),
                 BotCommand("usage", "میزان مصرف"),
-                BotCommand("expire", "تاریخ انقضا"),
                 BotCommand("info", "اطلاعات سیستم"),
             ]
             self.bot.set_my_commands(commands)
