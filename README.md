@@ -1,4 +1,4 @@
-# XUI Telegram Bot V1.4.1(Security Patch)🤖
+# XUI Telegram Bot V1.4.2(Security Patch)🤖
 
 A powerful Telegram bot for managing XUI VPN panel with advanced features and real-time monitoring capabilities.
 
@@ -95,7 +95,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 # راهنمای فارسی
 
-## ربات تلگرام XUI V1.4.0 (Security patch)🤖
+## ربات تلگرام XUI V1.4.2 (پچ امنیتی)🤖
 
 یک ربات قدرتمند تلگرام برای مدیریت پنل XUI VPN با قابلیت‌های پیشرفته و نظارت بلادرنگ.
 
