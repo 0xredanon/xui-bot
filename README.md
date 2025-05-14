@@ -1,4 +1,4 @@
-# XUI Telegram Bot 🤖
+# XUI Telegram Bot V1.4.0🤖
 
 A powerful Telegram bot for managing XUI VPN panel with advanced features and real-time monitoring capabilities.
 
