@@ -5,12 +5,12 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from sqlalchemy.orm import Session
 from typing import Optional
 
-from models.base import SessionLocal
-from models.models import TelegramUser, UserActivity, ChatHistory, VPNClient
-from api.xui_client import XUIClient
+from ..models.base import SessionLocal
+from ..models.models import TelegramUser, UserActivity, ChatHistory, VPNClient
+from ..api.xui_client import XUIClient
 
 # Initialize bot with hardcoded token
-BOT_TOKEN = "7131562124:AAE_IRcN0UJHXSrChUCfD0e7TZvLg_7s5mk"  # Replace with your Telegram bot token
+BOT_TOKEN = ""  # Replace with your Telegram bot token
 bot = telebot.TeleBot(BOT_TOKEN)
 xui_client = XUIClient()
 
@@ -58,28 +58,37 @@ def get_or_create_user(db: Session, telegram_user) -> TelegramUser:
 def create_client_status_keyboard(client_uuid: str, is_admin: bool) -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardMarkup()
     keyboard.row(
-        InlineKeyboardButton("🔄 Refresh Status", callback_data=f"refresh_{client_uuid}")
+        InlineKeyboardButton("🔄 بروزرسانی وضعیت", callback_data=f"refresh_{client_uuid}")
     )
     
     if is_admin:
+        # Traffic control buttons
         keyboard.row(
-            InlineKeyboardButton("👥 IP List", callback_data=f"ips_{client_uuid}"),
-            InlineKeyboardButton("📅 Change Expiry", callback_data=f"expiry_{client_uuid}")
+            InlineKeyboardButton("🎯 تنظیم حجم", callback_data=f"traffic_{client_uuid}"),
+            InlineKeyboardButton("♻️ ریست حجم", callback_data=f"reset_{client_uuid}")
         )
         keyboard.row(
-            InlineKeyboardButton("📊 Traffic Control", callback_data=f"traffic_{client_uuid}"),
-            InlineKeyboardButton("🔄 Reset Traffic", callback_data=f"reset_{client_uuid}")
+            InlineKeyboardButton("♾️ حجم نامحدود", callback_data=f"unlimited_{client_uuid}"),
+            InlineKeyboardButton("🔢 حجم دلخواه", callback_data=f"custom_traffic_{client_uuid}")
         )
+        
+        # Expiry control buttons
         keyboard.row(
-            InlineKeyboardButton("♾️ Set Unlimited", callback_data=f"unlimited_{client_uuid}")
+            InlineKeyboardButton("🗓️ تنظیم تاریخ انقضا", callback_data=f"expiry_{client_uuid}")
+        )
+        
+        # IP management buttons
+        keyboard.row(
+            InlineKeyboardButton("👀 مشاهده IPها", callback_data=f"ips_{client_uuid}")
         )
     
     return keyboard
 
 def create_traffic_options_keyboard(client_uuid: str) -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardMarkup()
-    traffic_options = [10, 20, 50, 100, 200]
+    traffic_options = [10, 20, 30, 50, 100]
     
+    # Create rows with two buttons each
     for i in range(0, len(traffic_options), 2):
         row = []
         row.append(InlineKeyboardButton(
@@ -93,27 +102,37 @@ def create_traffic_options_keyboard(client_uuid: str) -> InlineKeyboardMarkup:
             ))
         keyboard.row(*row)
     
-    keyboard.row(InlineKeyboardButton("🔙 Back", callback_data=f"status_{client_uuid}"))
+    # Add custom traffic input button
+    keyboard.row(
+        InlineKeyboardButton("🔢 حجم دلخواه", callback_data=f"custom_traffic_{client_uuid}")
+    )
+    
+    # Add back button
+    keyboard.row(InlineKeyboardButton("🔙 بازگشت", callback_data=f"back_{client_uuid}"))
     return keyboard
 
 def create_expiry_options_keyboard(client_uuid: str) -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardMarkup()
-    days_options = [7, 30, 60, 90, 180]
+    days_options = [1, 2, 3, 5, 10, 30, 60, 90, 120, 180]
     
-    for i in range(0, len(days_options), 2):
+    # Create rows with three buttons each
+    for i in range(0, len(days_options), 3):
         row = []
-        row.append(InlineKeyboardButton(
-            f"{days_options[i]} Days",
-            callback_data=f"setexpiry_{client_uuid}_{days_options[i]}"
-        ))
-        if i + 1 < len(days_options):
-            row.append(InlineKeyboardButton(
-                f"{days_options[i+1]} Days",
-                callback_data=f"setexpiry_{client_uuid}_{days_options[i+1]}"
-            ))
+        for j in range(3):
+            if i + j < len(days_options):
+                row.append(InlineKeyboardButton(
+                    f"{days_options[i+j]} روز",
+                    callback_data=f"setexpiry_{client_uuid}_{days_options[i+j]}"
+                ))
         keyboard.row(*row)
     
-    keyboard.row(InlineKeyboardButton("🔙 Back", callback_data=f"status_{client_uuid}"))
+    # Add unlimited option
+    keyboard.row(
+        InlineKeyboardButton("♾️ نامحدود", callback_data=f"setexpiry_{client_uuid}_0")
+    )
+    
+    # Add back button
+    keyboard.row(InlineKeyboardButton("🔙 بازگشت", callback_data=f"back_{client_uuid}"))
     return keyboard
 
 @bot.message_handler(commands=['start'])
@@ -124,7 +143,7 @@ def start_command(message):
         
         welcome_text = (
             "Welcome to XUI VPN Bot!\n\n"
-            "Use /status to check your VPN status"
+            "Use /usage to check your VPN status"
         )
         if user.is_admin:
             welcome_text += "\nYou have admin privileges."
