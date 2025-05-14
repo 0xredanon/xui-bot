@@ -13,7 +13,7 @@ class DatabaseError(BotError):
     pass
 
 class APIError(BotError):
-    """Raised when there's an API-related error"""
+    """Raised when there's an API-related error""" 
     def __init__(self, message: str = None, status_code: int = None):
         self.status_code = status_code
         super().__init__(message)

@@ -582,7 +582,7 @@ class AdminHandler:
     @admin_required
     @handle_admin_errors
     def handle_system(self, message: Message):
-        """Handle the /system command to show system information"""
+        """Handle the /system command to show system information""" 
         try:
             # Get CPU info
             cpu_percent = psutil.cpu_percent(interval=1)
