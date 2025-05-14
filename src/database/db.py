@@ -27,7 +27,7 @@ class Database:
             self.db_config = {
                 'host': 'localhost',
                 'user': 'root',
-                'password': 'fsociety',
+                'password': '',
                 'database': db_name
             }
             

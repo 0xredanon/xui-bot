@@ -6,9 +6,9 @@ from datetime import datetime, timedelta
 class XUIClient:
     def __init__(self):
         # Hardcoded configuration
-        self.base_url = "http://iran.olympusm.ir:7886"  # Replace with your X-UI panel URL
-        self.username = "mahdiaria"  # Replace with your X-UI username
-        self.password = "mahdiaria9531"  # Replace with your X-UI password
+        self.base_url = ""  # Replace with your X-UI panel URL
+        self.username = ""  # Replace with your X-UI username
+        self.password = ""  # Replace with your X-UI password
         self.session = requests.Session()
         self._login()
 

@@ -27,13 +27,13 @@ from src.utils.exceptions import *
 apihelper.ENABLE_MIDDLEWARE = True
 
 # Bot Configuration
-BOT_TOKEN = "7131562124:AAE_IRcN0UJHXSrChUCfD0e7TZvLg_7s5mk"
-ADMIN_IDS = [1709403695]
+BOT_TOKEN = ""
+ADMIN_IDS = []
 
 # Panel Configuration
-PANEL_URL = "http://iran.olympusm.ir:7886"
-PANEL_USERNAME = "mahdiaria"
-PANEL_PASSWORD = "mahdiaria9531"
+PANEL_URL = ""
+PANEL_USERNAME = ""
+PANEL_PASSWORD = ""
 
 # Rate Limiting Configuration
 RATE_LIMIT_MESSAGES = 30  # messages per window
