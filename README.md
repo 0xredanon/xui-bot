@@ -95,7 +95,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 # راهنمای فارسی
 
-## ربات تلگرام XUI 🤖
+## ربات تلگرام XUI V1.4.0 🤖
 
 یک ربات قدرتمند تلگرام برای مدیریت پنل XUI VPN با قابلیت‌های پیشرفته و نظارت بلادرنگ.
 
