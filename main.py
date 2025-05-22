@@ -85,8 +85,13 @@ class XUIBot:
             bot_info = self.bot.get_me()
             logger.info(f"Connected to bot: @{bot_info.username}")
             
-            # Initialize components with error handling
+            # Initialize components
             self._init_components()
+            
+            # Run database migrations
+            from src.database.migrations.run_migrations import run_migrations
+            if not run_migrations():
+                logger.warning("Some database migrations failed, but continuing with initialization")
             
             # Register all handlers
             self._register_handlers()
@@ -161,52 +166,80 @@ class XUIBot:
             
             # Register middleware for logging and error handling
             @self.bot.middleware_handler(update_types=['message'])
-            def global_middleware(bot_instance, message):
+            def global_middleware(bot: telebot.TeleBot, message: Message):
+                """Global middleware for logging and error handling"""
+                start_time = time.time()
                 try:
-                    # Ensure user data is saved/updated
-                    if message and message.from_user and message.from_user.id:
-                        user_info = {
-                            'id': int(message.from_user.id),  # Ensure ID is integer
-                            'username': str(message.from_user.username or ''),
-                            'first_name': str(message.from_user.first_name or ''),
-                            'last_name': str(message.from_user.last_name or ''),
-                            'language_code': str(message.from_user.language_code or 'fa')
-                        }
-                        
-                        logger.debug(f"Processing message from user {user_info['id']}, data: {user_info}")
-                        
-                        # Ensure user exists in database
-                        if not self.db.ensure_user_exists(user_info):
-                            logger.warning(f"Failed to update user data for {user_info['id']}")
-                        
-                        # Log incoming message with more context
-                        message_info = {
-                            'message_id': message.message_id,
-                            'chat_id': message.chat.id,
-                            'message_type': message.content_type,
-                            'command': message.text.split()[0] if message.text and message.text.startswith('/') else None
-                        }
-                        
-                        self.db.log_event(
-                            'INFO',
-                            'message_received',
-                            user_info['id'],
-                            f"Message: {message.text}",
-                            details={
-                                'user_info': user_info,
-                                'message_info': message_info
-                            }
-                        )
+                    # Ensure user data is saved and user_id is an integer
+                    user_id = int(message.from_user.id)
+                    username = message.from_user.username
+                    first_name = message.from_user.first_name
+                    last_name = message.from_user.last_name
                     
-                        # Rate limiting check
-                        if not self._check_rate_limit(user_info['id']):
-                            raise RateLimitError("Too many requests")
-                    else:
-                        logger.warning("Invalid message or missing user data in middleware")
+                    # Prepare user info
+                    user_info = {
+                        'id': user_id,
+                        'username': username or '',
+                        'first_name': first_name or '',
+                        'last_name': last_name or '',
+                        'language_code': message.from_user.language_code or 'fa'
+                    }
+                    
+                    # Ensure user exists in database
+                    if not self.db.ensure_user_exists(user_info):
+                        logger.warning(f"Failed to update user data for {user_id}")
+                    
+                    # Log user data
+                    self.db.log_event('INFO', 'user_data', user_id, f"User data received: {username}")
+                    
+                    # Log message details
+                    message_info = {
+                        'message_id': message.message_id,
+                        'chat_id': message.chat.id,
+                        'message_type': message.content_type,
+                        'command': message.text.split()[0] if message.text and message.text.startswith('/') else None
+                    }
+                    
+                    # Log chat message
+                    self.db.log_chat_message(
+                        user_id=user_id,
+                        message_id=message.message_id,
+                        chat_id=message.chat.id,
+                        message_type=message.content_type,
+                        content=message.text or message.caption or '',
+                        reply_to_message_id=message.reply_to_message.message_id if message.reply_to_message else None,
+                        forward_from_id=message.forward_from.id if message.forward_from else None,
+                        is_command=bool(message.text and message.text.startswith('/')),
+                        command_name=message.text.split()[0][1:] if message.text and message.text.startswith('/') else None,
+                        command_args=' '.join(message.text.split()[1:]) if message.text and message.text.startswith('/') else None
+                    )
+                    
+                    # Log user activity
+                    self.db.log_event('INFO', 'message_received', user_id, f"Message received: {message_info}")
+                    
+                    # Update user stats
+                    self.db.update_user_stats(user_id)
+                    
+                    # Log system metrics
+                    processing_time = int((time.time() - start_time) * 1000)
+                    self.db.log_system_metric(
+                        metric_type='message_processing',
+                        metric_value=processing_time,
+                        details={'message_id': message.message_id, 'user_id': user_id}
+                    )
+                    
+                    # Check rate limits
+                    if not self._check_rate_limit(user_id):
+                        self.db.log_event('WARNING', 'rate_limit_exceeded', user_id, "Rate limit exceeded")
+                        return False
+                        
+                    return True
                     
                 except Exception as e:
                     logger.error(f"Middleware error: {str(e)}\n{traceback.format_exc()}")
-                    raise
+                    if message and message.from_user and message.from_user.id:
+                        self.db.log_event('ERROR', 'middleware_error', int(message.from_user.id), f"Middleware error: {str(e)}")
+                    return False
 
             # Register start command handler
             @self.bot.message_handler(commands=['start'])
@@ -365,38 +398,37 @@ class XUIBot:
                 BotCommand("start", "شروع کار با ربات"),
                 BotCommand("help", "راهنمای دستورات"),
                 BotCommand("usage", "میزان مصرف"),
-                BotCommand("info", "اطلاعات سیستم"),
+                BotCommand("system_info", "اطلاعات سیستم"),
+                BotCommand("users", "مشاهده کاربران آنلاین"),
+                BotCommand("users_info", "لیست کامل کاربران"),
+                BotCommand("toggle", "فعال/غیرفعال کردن بکاپ"),
             ]
             self.bot.set_my_commands(commands)
             logger.info("Bot commands set successfully")
         except Exception as e:
             logger.error(f"Error setting bot commands: {str(e)}")
 
-    def run(self):
+    def start(self):
         """Run the bot"""
         try:
             logger.info("Starting bot polling...")
-            
             # Set up signal handlers
             def signal_handler(signum, frame):
                 logger.info("Received shutdown signal")
-                self.cleanup()
+                self.shutdown()
                 sys.exit(0)
-            
             signal.signal(signal.SIGINT, signal_handler)
             signal.signal(signal.SIGTERM, signal_handler)
-            
             # Start polling
             self.bot.infinity_polling()
-            
         except Exception as e:
             logger.critical(f"Critical error during bot execution: {str(e)}\n{traceback.format_exc()}")
-            self.cleanup()
+            self.shutdown()
             raise
         finally:
-            self.cleanup()
+            self.shutdown()
 
-    def cleanup(self):
+    def shutdown(self):
         """Cleanup resources"""
         try:
             logger.info("Cleaning up resources...")
@@ -408,10 +440,28 @@ class XUIBot:
         except Exception as e:
             logger.error(f"Error during cleanup: {str(e)}")
 
-if __name__ == "__main__":
+def main():
     try:
+        # Initialize bot
         bot = XUIBot()
-        bot.run()
+        
+        # Register signal handlers for graceful shutdown
+        signal.signal(signal.SIGINT, lambda s, f: bot.shutdown())
+        signal.signal(signal.SIGTERM, lambda s, f: bot.shutdown())
+        
+        # Start bot with proper cleanup
+        try:
+            bot.start()
+        except KeyboardInterrupt:
+            logger.info("Received keyboard interrupt")
+            bot.shutdown()
+        except Exception as e:
+            logger.error(f"Error running bot: {str(e)}")
+            bot.shutdown()
+            
     except Exception as e:
-        logger.critical(f"Fatal error: {str(e)}\n{traceback.format_exc()}")
-        sys.exit(1) 
+        logger.error(f"Fatal error: {str(e)}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main() 

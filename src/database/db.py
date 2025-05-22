@@ -10,7 +10,7 @@ from contextlib import contextmanager
 
 from src.utils.logger import CustomLogger
 from src.utils.exceptions import *
-from proj import *
+from proj import DB_HOST, DB_NAME, DB_USER, DB_PASSWORD, ADMIN_IDS
 
 # Initialize custom logger
 logger = CustomLogger("Database")
@@ -26,10 +26,10 @@ class Database:
     def __init__(self, db_name: str = "xui_bot"):
         try:
             self.db_config = {
-                'host': host,
-                'user': user,
-                'password': password,
-                'database': database
+                'host': DB_HOST,
+                'user': DB_USER,
+                'password': DB_PASSWORD,
+                'database': DB_NAME
             }
             
             # Create database if not exists
@@ -56,94 +56,158 @@ class Database:
             raise DatabaseError(f"Failed to create database: {str(e)}")
 
     def _init_db(self):
-        """Initialize database tables with proper error handling"""
+        """Initialize database tables"""
         try:
             with self.get_connection() as conn:
                 cursor = conn.cursor()
                 
-                # Users table for storing client information
-                cursor.execute('''
+                # Create users table
+                cursor.execute("""
                     CREATE TABLE IF NOT EXISTS users (
                         id INT AUTO_INCREMENT PRIMARY KEY,
+                        telegram_id BIGINT UNIQUE,
+                        username VARCHAR(255),
+                        first_name VARCHAR(255),
+                        last_name VARCHAR(255),
                         email VARCHAR(255) UNIQUE,
-                        traffic_limit BIGINT,  -- in GB
-                        expiry_date VARCHAR(50),
-                        created_at VARCHAR(50),
-                        last_modified VARCHAR(50),
-                        status VARCHAR(20),
-                        total_usage BIGINT,    -- in bytes
-                        inbound_id INT,
-                        telegram_id BIGINT,    -- Added telegram_id for linking
-                        username VARCHAR(255),  -- Telegram username
-                        first_name VARCHAR(255),-- Telegram first name
-                        last_name VARCHAR(255), -- Telegram last name
-                        language_code VARCHAR(10)-- User's language
-                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-                ''')
+                        language_code VARCHAR(10) DEFAULT 'fa',
+                        created_at DATETIME,
+                        last_activity DATETIME,
+                        status VARCHAR(20) DEFAULT 'active',
+                        traffic_limit BIGINT DEFAULT 0,
+                        total_usage BIGINT DEFAULT 0,
+                        expiry_date DATETIME,
+                        is_active BOOLEAN DEFAULT TRUE,
+                        is_admin BOOLEAN DEFAULT FALSE,
+                        state VARCHAR(50),
+                        chat_id BIGINT,
+                        last_chat_message DATETIME,
+                        chat_message_count INT DEFAULT 0,
+                        total_sessions INT DEFAULT 0,
+                        last_session_at DATETIME,
+                        active_sessions INT DEFAULT 0,
+                        session_count_24h INT DEFAULT 0
+                    )
+                """)
                 
-                # Logs table for comprehensive logging
-                cursor.execute('''
-                    CREATE TABLE IF NOT EXISTS logs (
+                # Create telegram_users table
+                cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS telegram_users (
                         id INT AUTO_INCREMENT PRIMARY KEY,
-                        timestamp VARCHAR(50),
-                        level VARCHAR(20),
-                        event_type VARCHAR(50),
+                        telegram_id BIGINT UNIQUE,
+                        username VARCHAR(255),
+                        first_name VARCHAR(255),
+                        last_name VARCHAR(255),
+                        language_code VARCHAR(10) DEFAULT 'fa',
+                        created_at DATETIME,
+                        last_activity DATETIME,
+                        is_admin BOOLEAN DEFAULT FALSE,
+                        status VARCHAR(20) DEFAULT 'active'
+                    )
+                """)
+                
+                # Create bot_status table
+                cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS bot_status (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        is_enabled BOOLEAN DEFAULT TRUE,
+                        last_updated DATETIME,
+                        updated_by INT,
+                        reason TEXT,
+                        FOREIGN KEY (updated_by) REFERENCES users(telegram_id)
+                    )
+                """)
+                
+                # Create chat_history table
+                cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS chat_history (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
                         user_id BIGINT,
-                        message TEXT,
-                        details TEXT,
-                        ip_address VARCHAR(50),    -- Added IP tracking
-                        user_agent VARCHAR(255)    -- Added user agent tracking
-                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-                ''')
+                        message_id BIGINT,
+                        chat_id BIGINT,
+                        message_type VARCHAR(50),
+                        content TEXT,
+                        reply_to_message_id BIGINT,
+                        forward_from_id BIGINT,
+                        timestamp DATETIME,
+                        edited_at DATETIME,
+                        deleted_at DATETIME,
+                        is_command BOOLEAN DEFAULT FALSE,
+                        command_name VARCHAR(50),
+                        command_args TEXT,
+                        bot_response TEXT,
+                        response_time INT,
+                        status VARCHAR(20) DEFAULT 'sent',
+                        FOREIGN KEY (user_id) REFERENCES users(telegram_id) ON DELETE CASCADE
+                    )
+                """)
                 
-                # Admin actions table
-                cursor.execute('''
-                    CREATE TABLE IF NOT EXISTS admin_actions (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        admin_id BIGINT,
-                        action_type VARCHAR(50),
-                        target_user VARCHAR(255),
-                        timestamp VARCHAR(50),
-                        details TEXT,
-                        ip_address VARCHAR(50),    -- Added IP tracking
-                        status VARCHAR(20)         -- Added status tracking
-                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-                ''')
-                
-                # User sessions table
-                cursor.execute('''
-                    CREATE TABLE IF NOT EXISTS user_sessions (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        email VARCHAR(255),
-                        ip_address VARCHAR(50),
-                        connected_at VARCHAR(50),
-                        disconnected_at VARCHAR(50),
-                        data_usage BIGINT,      -- in bytes
-                        device_info TEXT,       -- Added device tracking
-                        location VARCHAR(255),   -- Added location tracking
-                        connection_type VARCHAR(50), -- Added connection type
-                        FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
-                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-                ''')
-                
-                # User activity tracking
-                cursor.execute('''
+                # Create user_activity table
+                cursor.execute("""
                     CREATE TABLE IF NOT EXISTS user_activity (
                         id INT AUTO_INCREMENT PRIMARY KEY,
                         user_id BIGINT,
                         activity_type VARCHAR(50),
-                        timestamp VARCHAR(50),
-                        details TEXT,
-                        ip_address VARCHAR(50)
-                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-                ''')
+                        timestamp DATETIME,
+                        details JSON,
+                        FOREIGN KEY (user_id) REFERENCES users(telegram_id) ON DELETE CASCADE
+                    )
+                """)
+                
+                # Create logs table
+                cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS logs (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        timestamp DATETIME,
+                        level VARCHAR(20),
+                        event_type VARCHAR(50),
+                        user_id BIGINT,
+                        message TEXT,
+                        details JSON,
+                        FOREIGN KEY (user_id) REFERENCES users(telegram_id) ON DELETE CASCADE
+                    )
+                """)
+                
+                # Create bot_commands table
+                cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS bot_commands (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        command_name VARCHAR(50),
+                        user_id BIGINT,
+                        args TEXT,
+                        result TEXT,
+                        execution_time INT,
+                        timestamp DATETIME,
+                        status VARCHAR(20),
+                        error_message TEXT,
+                        session_id VARCHAR(50),
+                        FOREIGN KEY (user_id) REFERENCES users(telegram_id) ON DELETE CASCADE
+                    )
+                """)
+                
+                # Create shared_links table
+                cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS shared_links (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        user_id BIGINT,
+                        link_type VARCHAR(50),
+                        link_url TEXT,
+                        title VARCHAR(255),
+                        description TEXT,
+                        message_id BIGINT,
+                        chat_id BIGINT,
+                        created_at DATETIME,
+                        expiry_date DATETIME,
+                        FOREIGN KEY (user_id) REFERENCES users(telegram_id) ON DELETE CASCADE
+                    )
+                """)
                 
                 conn.commit()
                 logger.info("Database tables created/verified successfully")
                 
-        except MySQLError as e:
-            logger.error(f"Error initializing database tables: {str(e)}\n{traceback.format_exc()}")
-            raise DatabaseError(f"Failed to initialize database tables: {str(e)}")
+        except Exception as e:
+            logger.error(f"Error initializing database: {str(e)}\n{traceback.format_exc()}")
+            raise DatabaseError(f"Failed to initialize database: {str(e)}")
 
     @contextmanager
     def get_connection(self):
@@ -153,8 +217,17 @@ class Database:
             conn = mysql.connector.connect(**self.db_config)
             yield conn
         except MySQLError as e:
-            logger.error(f"Database connection error: {str(e)}\n{traceback.format_exc()}")
-            raise DatabaseError(f"Failed to connect to database: {str(e)}")
+            error_msg = str(e)
+            if "Access denied" in error_msg:
+                logger.error(f"Database access denied. Please check credentials: {error_msg}")
+            elif "Unknown column" in error_msg:
+                logger.error(f"Database schema error: {error_msg}")
+            else:
+                logger.error(f"Database connection error: {error_msg}\n{traceback.format_exc()}")
+            
+            if conn and conn.is_connected():
+                conn.close()
+            raise DatabaseError(f"Database error: {error_msg}")
         finally:
             if conn and conn.is_connected():
                 conn.close()
@@ -311,66 +384,48 @@ class Database:
             logger.error(f"Error updating user {email}: {str(e)}\n{traceback.format_exc()}")
             raise DatabaseError(f"Failed to update user: {str(e)}")
 
-    def log_event(self, level: str, event_type: str, user_id: Optional[int], 
-                  message: str, details: Dict = None, ip_address: str = None,
-                  user_agent: str = None):
-        """Enhanced event logging with proper error handling"""
+    def log_event(self, level: str, event_type: str, user_id: Optional[int], message: str, details: dict = None) -> bool:
+        """Log event with proper error handling"""
         try:
-            # Validate input parameters
-            if not level or level not in {'INFO', 'WARNING', 'ERROR', 'CRITICAL'}:
-                raise ValidationError("Invalid log level")
-            if not event_type or not isinstance(event_type, str):
-                raise ValidationError("Invalid event type")
-            if not message or not isinstance(message, str):
-                raise ValidationError("Invalid message")
+            # Prepare event details
+            event_details = {
+                'message': message,
+                'user_id': user_id,
+                'timestamp': datetime.now().isoformat(),
+                'additional_info': details or {}
+            }
             
-            current_time = datetime.now().isoformat()
+            # Try to get user context if available, but don't fail if not found
+            # Skip user context lookup during initialization (when user_id is None)
+            if user_id is not None:
+                try:
+                    user_context = self.get_user_info(user_id, by_telegram=True)
+                    if user_context:
+                        event_details['user_context'] = user_context
+                except Exception as e:
+                    logger.debug(f"Could not get user context for event logging: {str(e)}")
             
             with self.get_connection() as conn:
                 cursor = conn.cursor()
-                
-                # Log the event
-                cursor.execute('''
+                cursor.execute("""
                     INSERT INTO logs (
-                        timestamp, level, event_type, user_id, 
-                        message, details, ip_address, user_agent
-                    )
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                ''', (
-                    current_time,
+                        level, event_type, user_id, message, details, timestamp
+                    ) VALUES (%s, %s, %s, %s, %s, NOW())
+                """, (
                     level,
                     event_type,
                     user_id,
                     message,
-                    json.dumps(details, cls=DateTimeEncoder) if details else None,
-                    ip_address,
-                    user_agent
+                    json.dumps(event_details, cls=DateTimeEncoder)
                 ))
-                
-                # Also log to user_activity if user_id is provided
-                if user_id:
-                    cursor.execute('''
-                        INSERT INTO user_activity (
-                            user_id, activity_type, timestamp, 
-                            details, ip_address
-                        )
-                        VALUES (%s, %s, %s, %s, %s)
-                    ''', (
-                        user_id,
-                        event_type,
-                        current_time,
-                        json.dumps(details, cls=DateTimeEncoder) if details else None,
-                        ip_address
-                    ))
                 
                 conn.commit()
                 logger.debug(f"Event logged successfully: {event_type}")
+                return True
                 
         except Exception as e:
-            logger.error(f"Error logging event: {str(e)}\n{traceback.format_exc()}")
-            # Don't raise here to prevent logging failures from affecting main functionality
+            logger.error(f"Error logging event: {str(e)}")
             return False
-        return True
 
     def log_admin_action(self, admin_id: int, action_type: str, 
                         target_user: str, details: Dict = None,
@@ -417,12 +472,21 @@ class Database:
     def get_user_info(self, identifier: Union[str, int], by_telegram: bool = False) -> Optional[Dict]:
         """Get user information with proper error handling"""
         try:
-            # Validate input parameters
-            if by_telegram and not isinstance(identifier, int):
-                raise ValidationError("Telegram ID must be an integer")
-            if not by_telegram and not isinstance(identifier, str):
-                raise ValidationError("Email must be a string")
-            
+            # Handle None case gracefully
+            if identifier is None:
+                logger.debug("Identifier is None, returning None")
+                return None
+                
+            if by_telegram:
+                try:
+                    identifier = int(identifier)
+                except (ValueError, TypeError):
+                    logger.debug(f"Invalid Telegram ID format: {identifier}")
+                    return None
+            elif not isinstance(identifier, str):
+                logger.debug(f"Invalid email format: {identifier}")
+                return None
+                
             with self.get_connection() as conn:
                 cursor = conn.cursor()
                 
@@ -468,7 +532,7 @@ class Database:
             raise DatabaseError(f"Failed to get user info: {str(e)}")
         except Exception as e:
             logger.error(f"Error getting user info: {str(e)}\n{traceback.format_exc()}")
-            raise
+            return None
 
     def record_session(self, email: str, ip_address: str, device_info: str = None,
                       location: str = None, connection_type: str = None,
@@ -699,56 +763,72 @@ class Database:
             logger.error(f"Error during database cleanup: {str(e)}\n{traceback.format_exc()}")
             # Don't raise here as this is cleanup code
 
-    def ensure_user_exists(self, user_data: dict) -> bool:
-        """Ensure user exists in database and update their information if needed"""
+    def ensure_user_exists(self, user_data: Dict) -> bool:
+        """Ensure user exists in both users and telegram_users tables"""
         try:
-            # Validate user data
-            if not isinstance(user_data, dict):
-                logger.warning("Invalid user data type provided")
-                return False
-                
-            if not user_data.get('id'):
-                logger.warning("Missing user ID in user data")
-                return False
-
             with self.get_connection() as conn:
                 cursor = conn.cursor()
+                current_time = datetime.now().isoformat()
                 
                 # Check if user exists
                 cursor.execute("""
-                    SELECT telegram_id, username, first_name, last_name, language_code, status
-                    FROM users 
+                    SELECT telegram_id FROM telegram_users 
                     WHERE telegram_id = %s
                 """, (user_data['id'],))
                 
                 existing_user = cursor.fetchone()
-                current_time = datetime.now().isoformat()
                 
                 if existing_user:
-                    # Update user information if changed
+                    # Update existing user
                     cursor.execute("""
-                        UPDATE users 
+                        UPDATE telegram_users 
                         SET 
                             username = COALESCE(%s, username),
                             first_name = COALESCE(%s, first_name),
                             last_name = COALESCE(%s, last_name),
                             language_code = COALESCE(%s, language_code),
-                            last_modified = %s
+                            last_activity = %s,
+                            is_admin = %s
                         WHERE telegram_id = %s
                     """, (
                         user_data.get('username'),
                         user_data.get('first_name'),
                         user_data.get('last_name'),
-                        user_data.get('language_code'),
+                        user_data.get('language_code', 'fa'),
                         current_time,
+                        user_data['id'] in ADMIN_IDS,
                         user_data['id']
                     ))
                 else:
-                    # Insert new user with default values
+                    # Insert new user
+                    cursor.execute("""
+                        INSERT INTO telegram_users (
+                            telegram_id, username, first_name, last_name,
+                            language_code, created_at, last_activity, is_admin
+                        ) VALUES (
+                            %s, %s, %s, %s, %s, %s, %s, %s
+                        )
+                    """, (
+                        user_data['id'],
+                        user_data.get('username', ''),
+                        user_data.get('first_name', ''),
+                        user_data.get('last_name', ''),
+                        user_data.get('language_code', 'fa'),
+                        current_time,
+                        current_time,
+                        user_data['id'] in ADMIN_IDS
+                    ))
+                
+                # Also ensure user exists in users table
+                cursor.execute("""
+                    SELECT telegram_id FROM users WHERE telegram_id = %s
+                """, (user_data['id'],))
+                
+                if not cursor.fetchone():
                     cursor.execute("""
                         INSERT INTO users (
                             telegram_id, username, first_name, last_name,
-                            language_code, created_at, last_modified, status,
+                            language_code, created_at, last_activity, status,
                             traffic_limit, total_usage
                         ) VALUES (
                             %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
@@ -770,8 +850,14 @@ class Database:
                 logger.info(f"User data {'updated' if existing_user else 'created'} for user {user_data['id']}")
                 return True
                 
+        except MySQLError as e:
+            error_msg = str(e)
+            logger.error(f"Database error in ensure_user_exists: {error_msg}\n{traceback.format_exc()}")
+            if "Unknown column" in error_msg:
+                logger.error("Database schema mismatch. Please check table structure.")
+            return False
         except Exception as e:
-            logger.error(f"Error ensuring user exists: {str(e)}\n{traceback.format_exc()}")
+            logger.error(f"Unexpected error in ensure_user_exists: {str(e)}\n{traceback.format_exc()}")
             return False
 
     def log_bot_activity(self, user_id: int, command: str, input_data: dict = None, 
@@ -844,4 +930,291 @@ class Database:
                 
         except Exception as e:
             logger.error(f"Error logging bot activity: {str(e)}\n{traceback.format_exc()}")
+            return False
+
+    def get_all_users(self, limit: int = 100, offset: int = 0) -> List[Dict]:
+        """Get all users with pagination support"""
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor(dictionary=True)
+                cursor.execute("""
+                    SELECT * FROM users
+                    ORDER BY id DESC
+                    LIMIT %s OFFSET %s
+                """, (limit, offset))
+                
+                users = cursor.fetchall()
+                return users if users else []
+        except MySQLError as e:
+            logger.error(f"Database error getting all users: {str(e)}\n{traceback.format_exc()}")
+            raise DatabaseError(f"Failed to get all users: {str(e)}")
+        except Exception as e:
+            logger.error(f"Error getting all users: {str(e)}\n{traceback.format_exc()}")
+            return []
+
+    def count_users(self) -> int:
+        """Count total number of users in the database"""
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT COUNT(*) FROM users")
+                result = cursor.fetchone()
+                return result[0] if result else 0
+        except MySQLError as e:
+            logger.error(f"Database error counting users: {str(e)}\n{traceback.format_exc()}")
+            raise DatabaseError(f"Failed to count users: {str(e)}")
+        except Exception as e:
+            logger.error(f"Error counting users: {str(e)}\n{traceback.format_exc()}")
+            return 0
+
+    def log_chat_message(self, user_id: int, message_id: int, chat_id: int, message_type: str, 
+                        content: str, reply_to_message_id: int = None, forward_from_id: int = None,
+                        is_command: bool = False, command_name: str = None, command_args: str = None,
+                        bot_response: str = None, response_time: int = None) -> bool:
+        """Log detailed chat message information"""
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("""
+                    INSERT INTO chat_history (
+                        user_id, message_id, chat_id, message_type, content,
+                        reply_to_message_id, forward_from_id, is_command,
+                        command_name, command_args, bot_response, response_time
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """, (
+                    user_id, message_id, chat_id, message_type, content,
+                    reply_to_message_id, forward_from_id, is_command,
+                    command_name, command_args, bot_response, response_time
+                ))
+                conn.commit()
+                return True
+        except Exception as e:
+            logger.error(f"Error logging chat message: {str(e)}")
+            return False
+
+    def log_shared_link(self, user_id: int, link_type: str, link_url: str, title: str = None,
+                       description: str = None, message_id: int = None, chat_id: int = None,
+                       expiry_date: datetime = None) -> bool:
+        """Log shared link information"""
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("""
+                    INSERT INTO shared_links (
+                        user_id, link_type, link_url, title, description,
+                        message_id, chat_id, expiry_date
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                """, (
+                    user_id, link_type, link_url, title, description,
+                    message_id, chat_id, expiry_date
+                ))
+                conn.commit()
+                return True
+        except Exception as e:
+            logger.error(f"Error logging shared link: {str(e)}")
+            return False
+
+    def log_bot_command(self, command_name: str, user_id: int, args: str = None,
+                       result: str = None, execution_time: int = None, status: str = 'success',
+                       error_message: str = None, session_id: str = None) -> bool:
+        """Log bot command execution with detailed information"""
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                
+                # Prepare command metadata
+                command_metadata = {
+                    'args': args,
+                    'result': result,
+                    'error_message': error_message,
+                    'session_id': session_id
+                }
+                
+                # Prepare performance metrics
+                performance_metrics = {
+                    'execution_time': execution_time,
+                    'status': status,
+                    'timestamp': datetime.now().isoformat()
+                }
+                
+                # Prepare user context
+                user_context = self.get_user_info(user_id, by_telegram=True)
+                
+                cursor.execute("""
+                    INSERT INTO bot_commands (
+                        command_name, user_id, args, result, execution_time,
+                        status, error_message, session_id, command_metadata,
+                        performance_metrics, user_context, timestamp
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW())
+                """, (
+                    command_name,
+                    user_id,
+                    args,
+                    result,
+                    execution_time,
+                    status,
+                    error_message,
+                    session_id,
+                    json.dumps(command_metadata, cls=DateTimeEncoder),
+                    json.dumps(performance_metrics, cls=DateTimeEncoder),
+                    json.dumps(user_context, cls=DateTimeEncoder) if user_context else None
+                ))
+                
+                conn.commit()
+                logger.debug(f"Command logged successfully: {command_name}")
+                return True
+                
+        except Exception as e:
+            logger.error(f"Error logging command: {str(e)}")
+            return False
+
+    def log_system_metric(self, metric_type: str, metric_value: float, details: dict = None) -> bool:
+        """Log system performance metrics"""
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("""
+                    INSERT INTO system_metrics (
+                        metric_type, metric_value, details
+                    ) VALUES (%s, %s, %s)
+                """, (
+                    metric_type, metric_value, json.dumps(details) if details else None
+                ))
+                conn.commit()
+                return True
+        except Exception as e:
+            logger.error(f"Error logging system metric: {str(e)}")
+            return False
+
+    def update_user_stats(self, user_id: int, message_count: int = 0, command_count: int = 0,
+                         link_count: int = 0, session_count: int = 0) -> bool:
+        """Update user statistics"""
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("""
+                    UPDATE users 
+                    SET total_messages = total_messages + %s,
+                        total_commands = total_commands + %s,
+                        total_links = total_links + %s,
+                        total_sessions = total_sessions + %s,
+                        last_activity = CURRENT_TIMESTAMP
+                    WHERE telegram_id = %s
+                """, (message_count, command_count, link_count, session_count, user_id))
+                conn.commit()
+                return True
+        except Exception as e:
+            logger.error(f"Error updating user stats: {str(e)}")
+            return False
+
+    def get_user_activity_summary(self, user_id: int, days: int = 30) -> dict:
+        """Get comprehensive user activity summary"""
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor(dictionary=True)
+                
+                # Get message count
+                cursor.execute("""
+                    SELECT COUNT(*) as message_count 
+                    FROM chat_history 
+                    WHERE user_id = %s 
+                    AND created_at >= DATE_SUB(NOW(), INTERVAL %s DAY)
+                """, (user_id, days))
+                message_stats = cursor.fetchone()
+                
+                # Get command usage
+                cursor.execute("""
+                    SELECT command_name, COUNT(*) as usage_count 
+                    FROM bot_commands 
+                    WHERE user_id = %s 
+                    AND timestamp >= DATE_SUB(NOW(), INTERVAL %s DAY)
+                    GROUP BY command_name
+                """, (user_id, days))
+                command_stats = cursor.fetchall()
+                
+                # Get link sharing stats
+                cursor.execute("""
+                    SELECT link_type, COUNT(*) as share_count 
+                    FROM shared_links 
+                    WHERE user_id = %s 
+                    AND shared_at >= DATE_SUB(NOW(), INTERVAL %s DAY)
+                    GROUP BY link_type
+                """, (user_id, days))
+                link_stats = cursor.fetchall()
+                
+                # Get session stats
+                cursor.execute("""
+                    SELECT COUNT(*) as session_count,
+                           SUM(data_usage) as total_data_usage,
+                           AVG(duration) as avg_session_duration
+                    FROM user_sessions 
+                    WHERE user_id = %s 
+                    AND connected_at >= DATE_SUB(NOW(), INTERVAL %s DAY)
+                """, (user_id, days))
+                session_stats = cursor.fetchone()
+                
+                return {
+                    'message_stats': message_stats,
+                    'command_stats': command_stats,
+                    'link_stats': link_stats,
+                    'session_stats': session_stats
+                }
+        except Exception as e:
+            logger.error(f"Error getting user activity summary: {str(e)}")
+            return {}
+
+    def get_system_metrics_summary(self, metric_type: str = None, hours: int = 24) -> dict:
+        """Get system performance metrics summary"""
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor(dictionary=True)
+                
+                query = """
+                    SELECT metric_type,
+                           AVG(metric_value) as avg_value,
+                           MIN(metric_value) as min_value,
+                           MAX(metric_value) as max_value,
+                           COUNT(*) as sample_count
+                    FROM system_metrics
+                    WHERE timestamp >= DATE_SUB(NOW(), INTERVAL %s HOUR)
+                """
+                params = [hours]
+                
+                if metric_type:
+                    query += " AND metric_type = %s"
+                    params.append(metric_type)
+                
+                query += " GROUP BY metric_type"
+                
+                cursor.execute(query, tuple(params))
+                return cursor.fetchall()
+        except Exception as e:
+            logger.error(f"Error getting system metrics summary: {str(e)}")
+            return []
+
+    def get_bot_status(self) -> bool:
+        """Get current bot status"""
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT is_enabled FROM bot_status ORDER BY id DESC LIMIT 1")
+                result = cursor.fetchone()
+                return bool(result[0]) if result else True
+        except Exception as e:
+            logger.error(f"Error getting bot status: {str(e)}")
+            return True  # Default to enabled if error occurs
+
+    def set_bot_status(self, is_enabled: bool, admin_id: int, reason: str = None) -> bool:
+        """Set bot status with admin tracking"""
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("""
+                    INSERT INTO bot_status (is_enabled, updated_by, reason)
+                    VALUES (%s, %s, %s)
+                """, (is_enabled, admin_id, reason))
+                conn.commit()
+                return True
+        except Exception as e:
+            logger.error(f"Error setting bot status: {str(e)}")
             return False 

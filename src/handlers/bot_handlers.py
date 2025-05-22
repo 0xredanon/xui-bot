@@ -54,7 +54,7 @@ class BotHandlers:
             "*مدیریت کاربران:*\n"
             "🔹 `/add` \\[email\\] \\[GB\\] \\[days\\]: افزودن کاربر\n"
             "🔹 `/update` \\[email\\] \\[GB\\] \\[days\\]: بروزرسانی\n"
-            "🔹 `/reset` \\[email\\]: ریست ترافیک\n\n"
+            "🔹 `/reset` \\[email\\] \\[inbound\\_id\\]: ریست ترافیک\n\n"
             
             "*نظارت و گزارش:*\n"
             "🔹 `/ips` \\[email\\]: نمایش IP های فعال\n"
@@ -66,6 +66,8 @@ class BotHandlers:
             "`/add user1 10 30`\n\n"
             "\\- بروزرسانی کاربر:\n"
             "`/update user1 20 60`\n\n"
+            "\\- ریست ترافیک کاربر:\n"
+            "`/reset user1@example.com 1`\n\n"
             
             "⚠️ *نکته:* _تمامی مقادیر باید به انگلیسی وارد شوند_"
         )
@@ -111,7 +113,13 @@ class BotHandlers:
         """Handle /reset command."""
         chat_id = message.chat.id
         try:
-            _, email, inbound_id = message.text.split()
+            # Parse command: /reset email inbound_id
+            parts = message.text.split()
+            if len(parts) < 3:
+                self.bot.reply_to(message, "❌ فرمت دستور نادرست است\nمثال: /reset email@example.com 1")
+                return
+                
+            _, email, inbound_id = parts
             inbound_id = int(inbound_id)
             
             if self.xui_client.reset_client_traffic(inbound_id, email):
@@ -120,6 +128,8 @@ class BotHandlers:
                 self.bot.reply_to(message, "❌ خطا در ریست ترافیک")
         except ValueError:
             self.bot.reply_to(message, "❌ فرمت دستور نادرست است\nمثال: /reset email@example.com 1")
+        except Exception as e:
+            self.bot.reply_to(message, f"❌ خطا در ریست ترافیک: {str(e)}")
 
     def add_client(self, message):
         """Handle /add command."""

@@ -1,9 +1,11 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
+from proj import *
+from urllib.parse import quote_plus
 
 # Create MySQL engine with hardcoded credentials
-SQLALCHEMY_DATABASE_URL = "mysql://root:fsociety@localhost/xui_bot?charset=utf8mb4"
+SQLALCHEMY_DATABASE_URL = f"mysql://{DB_USER}:{quote_plus(DB_PASSWORD)}@{DB_HOST}/{DB_NAME}?charset=utf8mb4"
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
     pool_pre_ping=True,

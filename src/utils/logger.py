@@ -5,57 +5,63 @@ from datetime import datetime
 from pathlib import Path
 
 class CustomLogger:
-    def __init__(self, name: str):
+    """Custom logger with file and console output"""
+    
+    def __init__(self, name: str, level: str = "DEBUG"):
+        self._name = name
         self.logger = logging.getLogger(name)
-        self.logger.setLevel(logging.DEBUG)
+        self.logger.setLevel(getattr(logging, level.upper()))
         
-        # Create logs directory if it doesn't exist
-        log_dir = Path("logs")
-        log_dir.mkdir(exist_ok=True)
+        # Clear any existing handlers to avoid duplicates
+        if self.logger.hasHandlers():
+            self.logger.handlers.clear()
         
-        # File handler with rotation
-        log_file = log_dir / f"{name}.log"
-        file_handler = logging.handlers.RotatingFileHandler(
-            filename=log_file,
-            maxBytes=10*1024*1024,  # 10MB
-            backupCount=5,
-            encoding='utf-8'
+        # Create formatter
+        formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            datefmt='%Y-%m-%d %H:%M:%S'
         )
-        file_handler.setLevel(logging.DEBUG)
         
-        # Console handler
+        # Create temp_logs directory in current directory
+        logs_dir = Path(os.getcwd()) / 'temp_logs'
+        logs_dir.mkdir(exist_ok=True)
+        
+        # Create file handler
+        try:
+            file_handler = logging.handlers.RotatingFileHandler(
+                filename=logs_dir / f"{name}.log",
+                maxBytes=5 * 1024 * 1024,  # 5 MB
+                backupCount=3
+            )
+            file_handler.setFormatter(formatter)
+            self.logger.addHandler(file_handler)
+        except Exception as e:
+            print(f"Warning: Could not create log file for {name}: {str(e)}")
+            # Continue even if file logging fails
+        
+        # Create console handler
         console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.INFO)
-        
-        # Formatters
-        file_formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - [%(filename)s:%(lineno)d] - %(message)s'
-        )
-        console_formatter = logging.Formatter(
-            '%(asctime)s - %(levelname)s - %(message)s'
-        )
-        
-        file_handler.setFormatter(file_formatter)
-        console_handler.setFormatter(console_formatter)
-        
-        # Add handlers to logger
-        self.logger.addHandler(file_handler)
+        console_handler.setFormatter(formatter)
         self.logger.addHandler(console_handler)
-    
-    def debug(self, message: str, *args, **kwargs):
-        self.logger.debug(message, *args, **kwargs)
-    
-    def info(self, message: str, *args, **kwargs):
-        self.logger.info(message, *args, **kwargs)
-    
-    def warning(self, message: str, *args, **kwargs):
-        self.logger.warning(message, *args, **kwargs)
-    
-    def error(self, message: str, *args, **kwargs):
-        self.logger.error(message, *args, **kwargs)
-    
-    def critical(self, message: str, *args, **kwargs):
-        self.logger.critical(message, *args, **kwargs)
+        
+    @property
+    def name(self):
+        return self._name
+        
+    def debug(self, message):
+        self.logger.debug(message)
+        
+    def info(self, message):
+        self.logger.info(message)
+        
+    def warning(self, message):
+        self.logger.warning(message)
+        
+    def error(self, message):
+        self.logger.error(message)
+        
+    def critical(self, message):
+        self.logger.critical(message)
     
     def exception(self, message: str, *args, exc_info=True, **kwargs):
         self.logger.exception(message, *args, exc_info=exc_info, **kwargs)

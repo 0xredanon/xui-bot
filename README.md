@@ -1,27 +1,45 @@
-# XUI Telegram Bot V1.4.2(Security Patch)🤖
+# 🤖 XUI Bot v2.0
 
-A powerful Telegram bot for managing XUI VPN panel with advanced features and real-time monitoring capabilities.
+A powerful Telegram bot for managing X-UI panel with advanced features and robust error handling.
 
-[🇮🇷 راهنمای فارسی](#راهنمای-فارسی)
+## ✨ Features
 
-## Features ✨
+### 🛡️ Security
+- Advanced authentication system
+- Rate limiting and flood protection
+- Secure backup system with encryption
+- IP-based access control
+- Session management
 
-### Admin Features 👑
-- Real-time system monitoring (`/system`)
-- User traffic management and statistics
-- Automated backup system with scheduling
-- Broadcast messages to users
-- Detailed logging and monitoring
-- User management and control
+### 📊 User Management
+- User registration and verification
+- Role-based access control (Admin/User)
+- User activity tracking
+- Usage statistics and monitoring
+- Custom user states and workflows
 
-### User Features 👤
-- View VPN connection status
-- Monitor traffic usage
-- Check account expiry
-- Real-time statistics
-- Easy subscription management
+### 🔧 Panel Management
+- Real-time panel status monitoring
+- Automated backup system
+- Traffic monitoring and statistics
+- Client management
+- Server resource monitoring
 
-## Installation 🚀
+### 💾 Database Features
+- Automatic database backups
+- Data integrity checks
+- Migration system
+- Query optimization
+- Connection pooling
+
+### 📱 Bot Features
+- Interactive menus and keyboards
+- Multi-language support
+- Rich media messages
+- Command handling
+- Callback query support
+
+## 🚀 Installation
 
 1. Clone the repository:
 ```bash
@@ -29,153 +47,138 @@ git clone https://github.com/yourusername/xui-bot.git
 cd xui-bot
 ```
 
-2. Install dependencies:
+2. Create and activate virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# or
+.\venv\Scripts\activate  # Windows
+```
+
+3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Set up environment variables:
+4. Configure environment variables:
 ```bash
 cp .env.example .env
 # Edit .env with your configuration
 ```
 
-4. Run database migrations:
+5. Initialize the database:
 ```bash
-alembic upgrade head
+python -m src.database.migrations
 ```
 
-5. Start the bot:
+6. Run the bot:
 ```bash
 python main.py
 ```
 
-## Configuration ⚙️
+## ⚙️ Configuration
 
-Required environment variables:
+### Environment Variables
+- `BOT_TOKEN`: Your Telegram bot token
+- `ADMIN_ID`: Admin's Telegram ID
+- `DB_HOST`: Database host
+- `DB_PORT`: Database port
+- `DB_NAME`: Database name
+- `DB_USER`: Database user
+- `DB_PASS`: Database password
+- `PANEL_URL`: X-UI panel URL
+- `PANEL_USERNAME`: Panel username
+- `PANEL_PASSWORD`: Panel password
+
+### Database Configuration
+The bot uses SQLAlchemy ORM with MySQL/MariaDB. Configure your database settings in `.env` file.
+
+## 📁 Project Structure
+
 ```
-BOT_TOKEN=your_telegram_bot_token
-PANEL_URL=your_xui_panel_url
-PANEL_USERNAME=admin_username
-PANEL_PASSWORD=admin_password
-DB_HOST=localhost
-DB_USER=dbuser
-DB_PASSWORD=dbpassword
-DB_NAME=xuibot
+xui-bot/
+├── src/
+│   ├── handlers/         # Bot command handlers
+│   ├── models/          # Database models
+│   ├── utils/           # Utility functions
+│   ├── database/        # Database management
+│   └── config.py        # Configuration
+├── migrations/          # Database migrations
+├── backups/            # Backup storage
+├── logs/               # Log files
+├── tests/              # Test files
+├── main.py            # Entry point
+├── requirements.txt    # Dependencies
+└── README.md          # Documentation
 ```
 
-## Commands 📝
+## 🔄 Database Migrations
 
-### Admin Commands
-- `/system` - View system status and resources
-- `/users` - List online users
-- `/broadcast` - Send message to all users
-- `/backup` - Create system backup
-- `/logs` - View system logs
+The bot includes a migration system for database schema updates:
 
-### User Commands
-- `/start` - Start the bot
-- `/help` - Show help message
-- `/info` - Show account information
-- `/usage` - Check traffic usage
+```bash
+# Run all pending migrations
+python -m src.database.migrations
 
-## Contributing 🤝
+# Create new migration
+python -m src.database.migrations create_migration
+```
+
+## 📊 Monitoring
+
+The bot includes comprehensive monitoring features:
+
+- User activity tracking
+- System resource monitoring
+- Error logging and reporting
+- Performance metrics
+- Backup status monitoring
+
+## 🔒 Security Features
+
+- Rate limiting
+- IP blocking
+- Session management
+- Secure password handling
+- Backup encryption
+
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## License 📄
+## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
+## 🙏 Acknowledgments
 
-# راهنمای فارسی
+- [X-UI Panel](https://github.com/vaxilu/x-ui)
+- [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot)
+- [SQLAlchemy](https://www.sqlalchemy.org/)
 
-## ربات تلگرام XUI V1.4.2 (پچ امنیتی)🤖
+## 📞 Support
 
-یک ربات قدرتمند تلگرام برای مدیریت پنل XUI VPN با قابلیت‌های پیشرفته و نظارت بلادرنگ.
+For support, please open an issue in the GitHub repository or contact the maintainers.
 
-## امکانات ✨
+## 🔄 Updates
 
-### امکانات مدیر 👑
-- نظارت بلادرنگ سیستم (`/system`)
-- مدیریت ترافیک و آمار کاربران
-- سیستم پشتیبان‌گیری خودکار
-- ارسال پیام به کاربران
-- ثبت جزئیات و نظارت
-- مدیریت و کنترل کاربران
+### v2.0.0
+- Complete rewrite with improved architecture
+- Enhanced security features
+- Advanced backup system
+- Improved error handling
+- Better user management
+- Real-time monitoring
+- Migration system
+- Performance optimizations
 
-### امکانات کاربران 👤
-- مشاهده وضعیت اتصال VPN
-- نظارت بر مصرف ترافیک
-- بررسی تاریخ انقضا
-- آمار بلادرنگ
-- مدیریت آسان اشتراک
-
-## نصب و راه‌اندازی 🚀
-
-1. کلون کردن مخزن:
-```bash
-git clone https://github.com/yourusername/xui-bot.git
-cd xui-bot
-```
-
-2. نصب وابستگی‌ها:
-```bash
-pip install -r requirements.txt
-```
-
-3. تنظیم متغیرهای محیطی:
-```bash
-cp .env.example .env
-# ویرایش فایل .env با تنظیمات خود
-```
-
-4. اجرای مهاجرت‌های پایگاه داده:
-```bash
-alembic upgrade head
-```
-
-5. اجرای ربات:
-```bash
-python main.py
-```
-
-## پیکربندی ⚙️
-
-متغیرهای محیطی مورد نیاز:
-```
-BOT_TOKEN=توکن_ربات_تلگرام
-PANEL_URL=آدرس_پنل_شما
-PANEL_USERNAME=نام_کاربری_ادمین
-PANEL_PASSWORD=رمز_عبور_ادمین
-DB_HOST=localhost
-DB_USER=نام_کاربری_دیتابیس
-DB_PASSWORD=رمز_عبور_دیتابیس
-DB_NAME=نام_دیتابیس
-```
-
-## دستورات ربات 📝
-
-### دستورات مدیر
-- `/system` - مشاهده وضعیت و منابع سیستم
-- `/users` - لیست کاربران آنلاین
-- `/broadcast` - ارسال پیام به همه کاربران
-- `/backup` - ایجاد پشتیبان سیستم
-- `/logs` - مشاهده لاگ‌های سیستم
-
-### دستورات کاربران
-- `/start` - شروع کار با ربات
-- `/help` - نمایش راهنما
-- `/info` - نمایش اطلاعات حساب
-- `/usage` - بررسی مصرف ترافیک
-
-## پشتیبانی 💬
-برای گزارش مشکلات یا پیشنهادات، لطفاً یک Issue ایجاد کنید.
-
-## مجوز 📄
-این پروژه تحت مجوز MIT منتشر شده است - برای جزئیات بیشتر فایل [LICENSE](LICENSE) را مشاهده کنید. 
+### v1.5.0
+- Initial public release
+- Basic bot functionality
+- User management
+- Panel integration
+- Backup system 

@@ -1,81 +1,116 @@
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 def create_client_status_keyboard(client_uuid: str, is_admin: bool) -> InlineKeyboardMarkup:
-    keyboard = InlineKeyboardMarkup()
+    """Create keyboard for client status message"""
+    keyboard = InlineKeyboardMarkup(row_width=2)
+    
+    # Main refresh button
     keyboard.row(
-        InlineKeyboardButton("🔄 بروزرسانی وضعیت", callback_data=f"refresh_{client_uuid}")
+        InlineKeyboardButton("🔄 بروزرسانی", callback_data=f"refresh_{client_uuid}")
     )
     
     if is_admin:
-        # Traffic control buttons
+        # Traffic management buttons
         keyboard.row(
-            InlineKeyboardButton("🎯 تنظیم حجم", callback_data=f"traffic_{client_uuid}"),
-            InlineKeyboardButton("♻️ ریست حجم", callback_data=f"reset_{client_uuid}")
+            InlineKeyboardButton("🔄 ریست ترافیک", callback_data=f"reset_{client_uuid}"),
+            InlineKeyboardButton("⚡️ تمدید", callback_data=f"extend_{client_uuid}")
         )
         keyboard.row(
-            InlineKeyboardButton("♾️ حجم نامحدود", callback_data=f"unlimited_{client_uuid}"),
-            InlineKeyboardButton("🔢 حجم دلخواه", callback_data=f"custom_traffic_{client_uuid}")
+            InlineKeyboardButton("✏️ ویرایش", callback_data=f"edit_{client_uuid}"),
+            InlineKeyboardButton("❌ حذف", callback_data=f"delete_{client_uuid}")
         )
-        
-        # Expiry control buttons
         keyboard.row(
-            InlineKeyboardButton("🗓️ تنظیم تاریخ انقضا", callback_data=f"expiry_{client_uuid}")
-        )
-        
-        # IP management buttons
-        keyboard.row(
-            InlineKeyboardButton("👀 مشاهده IPها", callback_data=f"ips_{client_uuid}")
+            InlineKeyboardButton("📊 آمار مصرف", callback_data=f"stats_{client_uuid}")
         )
     
     return keyboard
 
 def create_traffic_options_keyboard(client_uuid: str) -> InlineKeyboardMarkup:
-    keyboard = InlineKeyboardMarkup()
-    traffic_options = [10, 20, 30, 50, 100]
+    keyboard = InlineKeyboardMarkup(row_width=3)
+    traffic_options = [5, 10, 20, 50, 100, 200, 500, 1000]
     
-    # Create rows with two buttons each
-    for i in range(0, len(traffic_options), 2):
+    # Create rows with three buttons each
+    for i in range(0, len(traffic_options), 3):
         row = []
-        row.append(InlineKeyboardButton(
-            f"{traffic_options[i]}GB",
-            callback_data=f"settraffic_{client_uuid}_{traffic_options[i]}"
-        ))
-        if i + 1 < len(traffic_options):
+        for gb in traffic_options[i:i+3]:
             row.append(InlineKeyboardButton(
-                f"{traffic_options[i+1]}GB",
-                callback_data=f"settraffic_{client_uuid}_{traffic_options[i+1]}"
+                f"{gb}GB",
+                callback_data=f"settraffic_{client_uuid}_{gb}"
             ))
         keyboard.row(*row)
     
-    # Add custom traffic input button
+    # Add unlimited and custom traffic buttons
     keyboard.row(
-        InlineKeyboardButton("🔢 حجم دلخواه", callback_data=f"custom_traffic_{client_uuid}")
+        InlineKeyboardButton("♾️ نامحدود", callback_data=f"setunlimited_{client_uuid}"),
+        InlineKeyboardButton("🔢 حجم دلخواه", callback_data=f"customtraffic_{client_uuid}")
     )
     
     # Add back button
-    keyboard.row(InlineKeyboardButton("🔙 بازگشت", callback_data=f"back_{client_uuid}"))
+    keyboard.row(
+        InlineKeyboardButton("🔙 بازگشت", callback_data=f"back_{client_uuid}")
+    )
+    
     return keyboard
 
 def create_expiry_options_keyboard(client_uuid: str) -> InlineKeyboardMarkup:
-    keyboard = InlineKeyboardMarkup()
-    days_options = [1, 2, 3, 5, 10, 30, 60, 90, 120, 180]
+    keyboard = InlineKeyboardMarkup(row_width=3)
+    expiry_options = [7, 15, 30, 60, 90, 180, 365]
     
     # Create rows with three buttons each
-    for i in range(0, len(days_options), 3):
+    for i in range(0, len(expiry_options), 3):
         row = []
-        for j in range(3):
-            if i + j < len(days_options):
-                row.append(InlineKeyboardButton(
-                    f"{days_options[i+j]} روز",
-                    callback_data=f"setexpiry_{client_uuid}_{days_options[i+j]}"
-                ))
+        for days in expiry_options[i:i+3]:
+            row.append(InlineKeyboardButton(
+                f"{days} روز",
+                callback_data=f"setexpiry_{client_uuid}_{days}"
+            ))
         keyboard.row(*row)
     
-    # Add unlimited option
+    # Add unlimited and custom expiry buttons
     keyboard.row(
-        InlineKeyboardButton("♾️ نامحدود", callback_data=f"setexpiry_{client_uuid}_0")
+        InlineKeyboardButton("♾️ نامحدود", callback_data=f"setexpiry_{client_uuid}_0"),
+        InlineKeyboardButton("📅 تاریخ دلخواه", callback_data=f"customexpiry_{client_uuid}")
     )
     
     # Add back button
-    keyboard.row(InlineKeyboardButton("🔙 بازگشت", callback_data=f"back_{client_uuid}"))
+    keyboard.row(
+        InlineKeyboardButton("🔙 بازگشت", callback_data=f"back_{client_uuid}")
+    )
+    
+    return keyboard
+
+def create_stats_keyboard(client_uuid: str) -> InlineKeyboardMarkup:
+    """Create keyboard for statistics options"""
+    keyboard = InlineKeyboardMarkup()
+    
+    # Add statistics buttons
+    keyboard.row(
+        InlineKeyboardButton(
+            "📊 آمار کلی",
+            callback_data=f"total_stats_{client_uuid}"
+        ),
+        InlineKeyboardButton(
+            "📈 نمودار مصرف",
+            callback_data=f"usage_graph_{client_uuid}"
+        )
+    )
+    keyboard.row(
+        InlineKeyboardButton(
+            "👥 کاربران آنلاین",
+            callback_data=f"online_users_{client_uuid}"
+        ),
+        InlineKeyboardButton(
+            "📋 گزارش روزانه",
+            callback_data=f"daily_report_{client_uuid}"
+        )
+    )
+    
+    # Add back button
+    keyboard.row(
+        InlineKeyboardButton(
+            "🔙 بازگشت",
+            callback_data=f"back_{client_uuid}"
+        )
+    )
+    
     return keyboard 

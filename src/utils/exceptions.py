@@ -14,9 +14,12 @@ class DatabaseError(BotError):
 
 class APIError(BotError):
     """Raised when there's an API-related error""" 
-    def __init__(self, message: str = None, status_code: int = None):
+    def __init__(self, message: str = None, status_code: int = None, details: dict = None):
         self.status_code = status_code
+        self.details = details
         super().__init__(message)
+    def __eq__(self, other):
+        return isinstance(other, APIError) and str(self) == str(other)
 
 class CommandError(BotError):
     """Raised when there's an error executing a command"""

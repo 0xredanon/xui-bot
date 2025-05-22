@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Optional
-from datetime import datetime
+from datetime import datetime, timezone
 
 @dataclass
 class Client:
@@ -20,7 +20,7 @@ class Client:
         """Check if client subscription is expired."""
         if self.expiry_time == 0:
             return False
-        return self.expiry_time <= int(datetime.now().timestamp() * 1000)
+        return self.expiry_time <= int(datetime.now(timezone.utc).timestamp() * 1000)
 
     @property
     def has_unlimited_traffic(self) -> bool:
@@ -32,5 +32,5 @@ class Client:
         """Get remaining days until expiration."""
         if self.expiry_time == 0:
             return None
-        remaining = (self.expiry_time - int(datetime.now().timestamp() * 1000)) / (1000 * 60 * 60 * 24)
+        remaining = (self.expiry_time - int(datetime.now(timezone.utc).timestamp() * 1000)) / (1000 * 60 * 60 * 24)
         return int(remaining) if remaining > 0 else 0 

@@ -1,9 +1,15 @@
 import os
 from datetime import datetime
 import telebot
-from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
+from telebot.util import escape_markdown
 from sqlalchemy.orm import Session
 from typing import Optional
+import time
+import traceback
+import logging
+
+logger = logging.getLogger(__name__)
 
 from ..models.base import SessionLocal
 from ..models.models import TelegramUser, UserActivity, ChatHistory, VPNClient
@@ -136,142 +142,110 @@ def create_expiry_options_keyboard(client_uuid: str) -> InlineKeyboardMarkup:
     keyboard.row(InlineKeyboardButton("🔙 بازگشت", callback_data=f"back_{client_uuid}"))
     return keyboard
 
-@bot.message_handler(commands=['start'])
-def start_command(message):
-    with get_db() as db:
-        user = get_or_create_user(db, message.from_user)
-        save_chat_message(db, user.id, message.message_id, "COMMAND", "/start")
-        
-        welcome_text = (
-            "Welcome to XUI VPN Bot!\n\n"
-            "Use /usage to check your VPN status"
-        )
-        if user.is_admin:
-            welcome_text += "\nYou have admin privileges."
-        
-        bot.reply_to(message, welcome_text)
-        save_user_activity(db, user.id, "START_COMMAND")
+class Bot:
+    def __init__(self, bot_instance):
+        self.bot = bot_instance
+        self.db = get_db()
+        self.xui_client = xui_client
+        self._register_handlers()
 
-@bot.message_handler(commands=['status'])
-def status_command(message):
-    with get_db() as db:
-        user = get_or_create_user(db, message.from_user)
-        save_chat_message(db, user.id, message.message_id, "COMMAND", "/status")
-        
-        # Get client info from API
-        clients = xui_client.get_clients(user.telegram_id)
-        
-        if not clients:
-            bot.reply_to(message, "You don't have any active VPN clients.")
-            return
-        
-        for client in clients:
-            status_text = (
-                f"📊 Client Status:\n"
-                f"Email: {client['email']}\n"
-                f"Traffic: {client['used_traffic']}/{client['total_traffic']} GB\n"
-                f"Expires: {client['expire_date']}\n"
-                f"Status: {'🟢 Active' if client['enable'] else '🔴 Disabled'}"
-            )
+    def _register_handlers(self):
+        """Register all command handlers"""
+        try:
+            logger.info("Starting handler registration")
             
-            keyboard = create_client_status_keyboard(client['uuid'], user.is_admin)
-            bot.reply_to(message, status_text, reply_markup=keyboard)
-        
-        save_user_activity(db, user.id, "STATUS_CHECK")
+            # Register global middleware
+            @self.bot.middleware_handler(update_types=['message'])
+            def global_middleware(bot_instance, message):
+                try:
+                    # Check if bot is enabled
+                    if not self.db.get_bot_status():
+                        # Allow admin commands even when bot is disabled
+                        if message.text and message.text.startswith('/'):
+                            command = message.text.split()[0][1:].lower()
+                            if command in ['toggle', 'users', 'logs', 'backup', 'broadcast', 'add']:
+                                return message
+                        
+                        # Send disabled message to non-admin users
+                        if message.from_user:
+                            bot_instance.reply_to(
+                                message,
+                                "❌ *ربات در حال حاضر غیرفعال است*\\.\nلطفاً بعداً تلاش کنید\\.",
+                                parse_mode='MarkdownV2'
+                            )
+                        return None
+                    
+                    # Log message
+                    if message.from_user:
+                        self.db.log_event(
+                            'INFO',
+                            'message_received',
+                            message.from_user.id,
+                            f"Received message: {message.text[:100]}",
+                            details={'message_id': message.message_id}
+                        )
+                except Exception as e:
+                    logger.error(f"Error in global middleware: {str(e)}")
+                return message
+            
+            # Register command handlers
+            self.bot.message_handler(commands=['start'])(self.handle_start_cmd)
+            self.bot.message_handler(commands=['help'])(self.handle_help_cmd)
+            self.bot.message_handler(commands=['status'])(self.handle_status_cmd)
+            self.bot.message_handler(commands=['link'])(self.handle_link_cmd)
+            self.bot.message_handler(commands=['traffic'])(self.handle_traffic_cmd)
+            self.bot.message_handler(commands=['expiry'])(self.handle_expiry_cmd)
+            self.bot.message_handler(commands=['usage'])(self.handle_usage_cmd)
+            self.bot.message_handler(commands=['settings'])(self.handle_settings_cmd)
+            
+            # Register callback handlers
+            self.bot.callback_query_handler(func=lambda call: True)(self.handle_callback)
+            
+            logger.info("All handlers registered successfully")
+            
+        except Exception as e:
+            logger.error(f"Error registering handlers: {str(e)}\n{traceback.format_exc()}")
+            raise
 
-@bot.callback_query_handler(func=lambda call: True)
-def handle_callback_query(call):
-    with get_db() as db:
-        user = get_or_create_user(db, call.from_user)
-        action, *params = call.data.split('_')
-        
-        if action == "refresh":
-            client_uuid = params[0]
-            client_info = xui_client.get_client(client_uuid)
+    def _check_rate_limit(self, user_id: int) -> bool:
+        # Implement rate limiting logic here
+        return True  # Placeholder, actual implementation needed
+
+    def _send_error_message(self, message: Message):
+        # Implement error message sending logic here
+        pass  # Placeholder, actual implementation needed
+
+    def start(self):
+        """Start the bot with proper error handling."""
+        try:
+            logger.info("Starting bot polling...")
+            self.bot.polling(none_stop=True, interval=0)
+        except Exception as e:
+            logger.error(f"Error in bot polling: {str(e)}")
+            raise
+
+    def shutdown(self):
+        """Gracefully shutdown the bot."""
+        try:
+            logger.info("Received shutdown signal")
+            logger.info("Cleaning up resources...")
             
-            status_text = (
-                f"📊 Updated Client Status:\n"
-                f"Email: {client_info['email']}\n"
-                f"Traffic: {client_info['used_traffic']}/{client_info['total_traffic']} GB\n"
-                f"Expires: {client_info['expire_date']}\n"
-                f"Status: {'🟢 Active' if client_info['enable'] else '🔴 Disabled'}"
-            )
+            # Stop the bot polling
+            if hasattr(self, 'bot'):
+                self.bot.stop_polling()
             
-            keyboard = create_client_status_keyboard(client_uuid, user.is_admin)
-            bot.edit_message_text(
-                status_text,
-                call.message.chat.id,
-                call.message.message_id,
-                reply_markup=keyboard
-            )
+            # Cleanup database
+            if hasattr(self, 'db'):
+                self.db.cleanup()
             
-            save_user_activity(db, user.id, "REFRESH_STATUS", client_uuid)
-        
-        elif action == "traffic" and user.is_admin:
-            client_uuid = params[0]
-            keyboard = create_traffic_options_keyboard(client_uuid)
-            bot.edit_message_text(
-                "Select new traffic limit:",
-                call.message.chat.id,
-                call.message.message_id,
-                reply_markup=keyboard
-            )
-        
-        elif action == "expiry" and user.is_admin:
-            client_uuid = params[0]
-            keyboard = create_expiry_options_keyboard(client_uuid)
-            bot.edit_message_text(
-                "Select new expiry period:",
-                call.message.chat.id,
-                call.message.message_id,
-                reply_markup=keyboard
-            )
-        
-        elif action == "settraffic" and user.is_admin:
-            client_uuid, gb = params
-            xui_client.set_traffic(client_uuid, int(gb))
-            save_user_activity(db, user.id, "SET_TRAFFIC", client_uuid, {"gb": gb})
-            bot.answer_callback_query(call.id, f"Traffic limit set to {gb}GB")
+            # Cleanup panel API
+            if hasattr(self, 'panel_api'):
+                self.panel_api.cleanup()
             
-            # Refresh status display
-            client_info = xui_client.get_client(client_uuid)
-            status_text = (
-                f"📊 Updated Client Status:\n"
-                f"Email: {client_info['email']}\n"
-                f"Traffic: {client_info['used_traffic']}/{client_info['total_traffic']} GB\n"
-                f"Expires: {client_info['expire_date']}\n"
-                f"Status: {'🟢 Active' if client_info['enable'] else '🔴 Disabled'}"
-            )
-            keyboard = create_client_status_keyboard(client_uuid, user.is_admin)
-            bot.edit_message_text(
-                status_text,
-                call.message.chat.id,
-                call.message.message_id,
-                reply_markup=keyboard
-            )
-        
-        elif action == "setexpiry" and user.is_admin:
-            client_uuid, days = params
-            xui_client.set_expiry(client_uuid, int(days))
-            save_user_activity(db, user.id, "SET_EXPIRY", client_uuid, {"days": days})
-            bot.answer_callback_query(call.id, f"Expiry set to {days} days")
+            logger.info("Cleanup completed")
             
-            # Refresh status display
-            client_info = xui_client.get_client(client_uuid)
-            status_text = (
-                f"📊 Updated Client Status:\n"
-                f"Email: {client_info['email']}\n"
-                f"Traffic: {client_info['used_traffic']}/{client_info['total_traffic']} GB\n"
-                f"Expires: {client_info['expire_date']}\n"
-                f"Status: {'🟢 Active' if client_info['enable'] else '🔴 Disabled'}"
-            )
-            keyboard = create_client_status_keyboard(client_uuid, user.is_admin)
-            bot.edit_message_text(
-                status_text,
-                call.message.chat.id,
-                call.message.message_id,
-                reply_markup=keyboard
-            )
+        except Exception as e:
+            logger.error(f"Error during cleanup: {str(e)}")
 
 def run_bot():
     print("Bot started...")

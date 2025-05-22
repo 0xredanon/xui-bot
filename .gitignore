@@ -2,6 +2,8 @@
 .env
 .env.*
 !.env.example
+.env.local
+.env.*.local
 
 # Python
 __pycache__/
@@ -9,6 +11,13 @@ __pycache__/
 *$py.class
 *.so
 .Python
+*.pyc
+*.pyo
+*.pyd
+*.pot
+MANIFEST
+
+# Build and Distribution
 build/
 develop-eggs/
 dist/
@@ -25,7 +34,7 @@ share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-MANIFEST
+*.tar.gz
 
 # Virtual Environment
 venv/
@@ -38,7 +47,6 @@ ENV/
 .vscode/
 *.swp
 *.swo
-.DS_Store
 *.sublime-project
 *.sublime-workspace
 .project
@@ -46,28 +54,55 @@ ENV/
 .settings/
 *.code-workspace
 
-# Project specific
-data/
-backups/
+# Logs and Databases
 logs/
+log/
 *.log
 *.log.*
-*.session
-*.session-journal
+date_debug.log
 *.db
 *.sqlite3
+*.sqlite
+*.session
+*.session-journal
 
-# Temporary files
-*.bak
-*.tmp
-*.temp
+# Testing and Coverage
 .coverage
+.coverage.*
 htmlcov/
 .pytest_cache/
+.tox/
+.pytest_cache
+pytest.ini
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+/tests/
+/tests
+
+# Cache and Temporary
+.cache
 .mypy_cache/
 .pyre/
 .dmypy.json
 dmypy.json
+*.bak
+*.tmp
+*.temp
+/temp_logs
+
+# Project specific
+data/
+backups/
+/exports/
+config.yml
+config.ini
+settings.json
+credentials.json
+token.json
+proj.py
+first-version-of-bot.py
 
 # OS specific
 .DS_Store
@@ -79,67 +114,5 @@ ehthumbs.db
 Thumbs.db
 desktop.ini
 
-# New additions from the code block
-config.yml
-*.pot
-*.pyc
-*.pyo
-*.pyd
-.tox/
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-.ipynb_checkpoints
-
-# Distribution / packaging
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-
-# Environment variables
-.env.local
-.env.*.local
-proj.py
-
-# Logs
-*.log
-logs/
-log/
-/exports
-
-# Local development
-.DS_Store
-.coverage
-htmlcov/
-.pytest_cache/
-coverage.xml
-*.cover
-*.py,cover
-
-# Database
-*.db
-*.sqlite3
-*.sqlite
-
-# Distribution
-dist/
-build/
-*.tar.gz 
+# Jupyter
+.ipynb_checkpoints/ 

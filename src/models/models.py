@@ -28,6 +28,7 @@ class TelegramUser(Base):
     is_admin = Column(Boolean, default=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     last_activity = Column(DateTime, default=datetime.utcnow)
+    state = Column(String(255), nullable=True)  # For tracking user state in conversations
     
     # Relationships
     activities = relationship("UserActivity", back_populates="user")
