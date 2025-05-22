@@ -156,8 +156,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- [X-UI Panel](https://github.com/vaxilu/x-ui)
-- [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot)
+- [X-UI Panel](https://www.github.com/mhsanaei/3x-ui)
+- [python-telegram-bot](https://github.com/0xredanon/xui-bot)
 - [SQLAlchemy](https://www.sqlalchemy.org/)
 
 ## 📞 Support
